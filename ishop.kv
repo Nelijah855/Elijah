@@ -1,0 +1,255 @@
+<Ishop>:
+
+    FloatLayout:
+        Label:
+            text:root.display
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.1,'top':1}
+
+        Button:
+        
+            text:'homepage'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.1,'top':.9}
+            on_press:
+                app.root.current='ads'
+        
+        Button:
+            text:'sell'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.3,'top':.9}
+            on_press:
+                root.sell()
+        
+        Button:
+            text:'buy '
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.5,'top':.9}
+            on_press:
+                root.buy()
+        Button:
+            text:'IGchat.. '
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.7,'top':.9}
+            on_press:
+                root.cart()
+          
+        
+        Button:
+	    
+            text:'deliver'
+            color: (0,1,0,1)
+            size_hint: 0.16,0.1
+            pos_hint:{'x':.9,'top':.9}
+            on_press:
+                app.root.current='invest'
+        Button:
+    	    
+            text:'pay'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.2,'top':.8}
+            on_press:
+                root.pay()
+        Button:
+    	    
+            text:'mtn'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.4,'top':.8}
+            on_press:
+                root.pay()
+        
+        Button:
+    	    
+            text:'airtel'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.6,'top':.8}
+            on_press:
+                root.airtel()
+        
+
+        TextInput:
+        	    
+            text:'message'
+            color: (0,1,0,1)
+            size_hint: 0.3,0.05
+            pos_hint:{'x':.6,'top':.6}
+            
+
+        AsyncImage:
+            size_hint: 1,0.4
+            pos_hint:{'x':.1,'top':.4}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+
+    
+
+
+       
+        
+
+<Ads>:
+    FloatLayout:
+        
+        Button:
+            text:'prev'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.2
+            pos_hint:{'x':.2,'top':.9}
+            on_press:
+                root.prev()
+                app.root.current='ads'
+        Button:
+            text:'next '
+            color: (0,1,0,1)
+            size_hint: 0.2,0.2
+            pos_hint:{'x':.4,'top':.9}
+            on_press:
+                root.next()
+                app.root.current='ads'
+                
+        
+        
+        Button:
+            text:'load '
+            color: (0,1,0,1)
+            size_hint: 0.2,0.2
+            pos_hint:{'x':.6,'top':.9}
+            on_press: root.load()
+        TextInput:
+            	    
+            text:'message'
+            color: (0,1,0,1)
+            size_hint: 0.3,0.05
+            pos_hint:{'x':.6,'top':.6}
+        
+        Button:
+            text:'exit '
+            color: (0,1,0,1)
+            size_hint: 0.2,0.2
+            pos_hint:{'x':.8,'top':.9}
+            on_press: root.exit()
+        AsyncImage:
+            size_hint: 1,0.4
+            pos_hint:{'x':.1,'top':.4}
+            source: 'https://parais123.000webhostapp.com/bis.jpg'
+            allow_stretch: True
+        VideoPlayer:
+	        id:videoplayer
+            source:"https://parais123.000webhostapp.com/vid.mp4"
+            play: True
+            color: (0,1,0,1)
+            size_hint: 0.2,0.2
+            pos_hint:{'x':.2,'top':.4}
+
+<Invest>:
+    
+    FloatLayout:
+        Label:
+            text:"paris invest"
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.1,'top':1}
+
+        Button:
+        
+            text:'homepage'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.1,'top':.9}
+            on_press:
+                app.root.current='ads'
+        
+        Button:
+            text:'old'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.3,'top':.9}
+            on_press:
+                root.sell()
+        
+        Button:
+            text:'young'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.5,'top':.9}
+            on_press:
+                root.buy()
+ 
+        Button:
+    	    
+            text:'pay'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.2,'top':.8}
+            on_press:
+                root.pay()
+        Button:
+    	    
+            text:'forex'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.4,'top':.8}
+            on_press:
+                app.root.current='forex'
+
+
+
+<Forex>:
+        
+    FloatLayout:
+        Label:
+            text:"paris forex"
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.1,'top':1}
+
+        Button:
+        
+            text:'cad/ugx'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.1,'top':.9}
+            on_press:
+                app.root.current='ads'
+        
+        Button:
+            text:'usd/rwd'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.3,'top':.9}
+            on_press:
+                root.sell()
+        
+        Button:
+            text:'kwt/gpb'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.5,'top':.9}
+            on_press:
+                root.buy()
+ 
+        Button:
+    	    
+            text:'pay'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.2,'top':.8}
+            on_press:
+                root.pay()
+        Button:
+    	    
+            text:'mtn'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.4,'top':.8}
+            on_press:
+                root.buy()
