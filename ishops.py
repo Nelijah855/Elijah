@@ -1,12 +1,20 @@
+from kivy.properties import NumericProperty
 
 """
 libraries reqiured 
 
-mysql.connector,plyer, ffpyplayer,
+mysql.connector,plyer, ffpyplayer,mtnmomo
 
 """
-
-
+#project class [][][][]
+from gui import Inner
+from login import Login
+#m mtn import Mtn
+from network import Client,Server
+from message import Message
+from online_box import Online
+from account import Account
+#project class [][][][]
 
 import kivy
 import mysql.connector 
@@ -25,6 +33,7 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.videoplayer import VideoPlayer
 from plyer import notification
+
 import os
 from kivy.graphics import Rectangle,Color
 import sys
@@ -33,31 +42,12 @@ from kivy.uix.widget import Widget
 
 
 import os
+import sys
 
 
-"""
-#from mtnmomo.collection import Collection
+images=['']
 
 
-class Mtn():
-
-
-   
-    client = Collection({
-        "COLLECTION_USER_ID": os.environ.get("053c6dea-dd68-xxxx-xxxx-c830dac9f401'}"),
-        "COLLECTION_API_SECRET": os.environ.get('b0431db58a9b41faa8f5860230xxxxxx'),
-        "COLLECTION_PRIMARY_KEY": os.environ.get("COLLECTION_PRIMARY_KEY"),
-    })
-
-    
-    
-
-    
-    def mtnpay(self):
-        self.client.requestToPay(
-    mobile="0778056923", amount="600", external_id="123456789", payee_note="dd", payer_message="dd", currency="EUR")
-
-"""
 
 
 #class to handle the database
@@ -149,48 +139,6 @@ class Recta_(FloatLayout):
 
 
 
-"""
-class responsible for the client side connection
-
-"""
-class Client():
-    
-    def connector(self,host):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        try:
-            
-
-            sock.connect((host,3000))
-            data=sock.recv(1000)
-            message="paria company"
-            sock.sendall(str.encode(message))
-        
-            
-
-        except:
-            sys.exit(0)
-
-            
-    
-
-"""
-class responsible for the server  side connection
-
-"""
-class Server():
-    s_host=""
-    port=""
-    
-    def listener(self,host):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.bind((host, 3000))
-        sock.listen(5)
-        
-        while True:
-            new_soc,addr=sock.accept()
-            new_soc.sendall('thanks for connecting to the ic company....'.encode('utf-8'))
-            data=new_soc.recv(1024)
-
 
 
 # kv gui template 
@@ -210,6 +158,8 @@ class Ads(FloatLayout):
 
     display=''
     items=[]
+    image=StringProperty(images[0])
+    index=NumericProperty(0)
     def play(self):
 
          for i in self.items:
@@ -220,23 +170,15 @@ class Ads(FloatLayout):
 
 
     def next(self):
-        self.items=[]
-        for s_q in range(100000):
-            if self.items[s_q]=="search_q":
-                display=self.item[s_q]
-                return True
-            else:
-                return False
-
+        self.index +=1
+        self.index %=len(images)
+        self.image=images[self.index]
     
     def prev(self):
         
-        for s_q in range(100000):
-            if self.item[s_q]=="search_q":
-                display=self.item[s_q]
-                return True
-            else:
-                return False
+        self.index +=1
+        self.index %=len(images)
+        self.image=images[self.index]
 
 
             
@@ -284,12 +226,14 @@ class Ishop(Screen):
 
     price=''
 
-    image=''
-
+    image=StringProperty(images[0])
+    index=NumericProperty(0)
     display=''
 
     loop=0
-
+    def logout(self):
+        self.ids.logout.text='out'
+        
     
     def loop(self):
         for i in range(100000):
@@ -316,6 +260,7 @@ class Ishop(Screen):
     def retail(self):
         #price of the item
         price=0
+        
         #max_profit
         max_p=3000
         #min_profit
@@ -346,31 +291,27 @@ class Ishop(Screen):
             else:
                 return False
     def next(self):
-        items=[]
-        for i in len(items):
-            if i==0:
-                i=0+1
-                break
-            elif i==len(items):
-                display="indexfail check prev button  plz!!!!"
-                break
-            elif i==None:
-                display="no item!!!!"
-            else:
-                i=i+1
-                break
-                
+        self.index +=1
+        self.index %=len(images)
+        self.image=images[self.index]
         
     def sell(self):
+        """accesing the ishops ids
+
+        """
+        self.ids.member
+
+
         # varaible to hld the passcode for the user 
-        code=TextInput(text="code ...",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2})
+        code=TextInput(text="code ...",size_hint=(.2,.05),pos_hint={'x':.1,'y':.2},color=(0,1,0,1),background_color=(0,1,0,1))
         #variable to hold the ammount of money to be sold
-        a_m=TextInput(text="code ...",size_hint=(.2,.1),pos_hint={'x':.3,'y':.2})
+        a_m=TextInput(text="code ...",size_hint=(.2,.05),pos_hint={'x':.1,'y':.3},color=(0,1,0,1),background_color=(0,1,0,1))
         #variable to hold the currency
-        ugx=TextInput(text="money ...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        ugx=TextInput(text="money ...",size_hint=(.2,.05),pos_hint={'x':.1,'y':.4},color=(0,1,0,1),background_color=(0,1,0,1))
         #variable to hold the sellers name 
-        user_id=TextInput( text="user_id", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2})
-        
+        user_id=TextInput( text="user_id", size_hint=(.2,.05),pos_hint={'x':.1,'y':.5},color=(0,1,0,1),background_color=(0,1,0,1))
+        finish=Button( text="finish", size_hint=(.2,.05),pos_hint={'x':.1,'y':.6},color=(0,1,0,1),background_color=(0,1,0,1))
+        self.add_widget(finish)
         self.add_widget(code)
         self.add_widget(a_m)
         self.add_widget(ugx)
@@ -384,20 +325,24 @@ class Ishop(Screen):
             #a.mtnpay()
             #Mtn.mtntrans()
             pass
+    def painter(self):
+        a=Inner()
+        a.draw()
     
     def airtel(self):
         pass
     def buy(self,*args):
         # varaible to hld the passcode for the user 
-        code=TextInput(text="shopcode ...",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2})
+        code=TextInput(text="shopcode ...",size_hint=(.2,.05),pos_hint={'x':.7,'y':.5},background_color=(0,1,1,1))
         #variable to hold the ammount of money to be bought on 
-        a_m=TextInput(text="name...",size_hint=(.2,.1),pos_hint={'x':.3,'y':.2})
+        a_m=TextInput(text="name...",size_hint=(.2,.05),pos_hint={'x':.7,'y':.4},background_color=(0,1,1,1))
         #variable to hold the currency
-        ugx=TextInput(text="money ...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        ugx=TextInput(text="money ...",size_hint=(.2,.05),pos_hint={'x':.7,'y':.3},background_color=(0,1,1,1))
         #variable to hold the buyers name 
-        user_id=TextInput( text="user_id", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2})
-        
+        user_id=TextInput( text="user_id", size_hint=(.2,.05),pos_hint={'x':.7,'y':.2},background_color=(0,1,1,1))
+        finish=Button( text="finish", size_hint=(.2,.05),pos_hint={'x':.7,'y':.1},background_color=(0,1,1,1))
         self.add_widget(code)
+        self.add_widget(finish)
         self.add_widget(a_m)
         self.add_widget(ugx)
         self.add_widget(user_id)
@@ -405,18 +350,9 @@ class Ishop(Screen):
 
     def prev(self):
 
-        items=[]
-        for i in range(len(items)):
-            if i==len(items):
-                i=i-1
-                break
-            elif i==0:
-                display="fail index!!!!, check next button"
-            elif i==None:
-                display="no item!!!!"
-            else:
-                i=i-1
-        pass
+        self.index +=1
+        self.index %=len(images)
+        self.image=images[self.index]
     def deliver(self):
         label=Label(text='i watch',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
         self.add_widget(label)
@@ -529,7 +465,7 @@ class Ads(Screen):
 
         items=[]
         self.display="loading audio......."
-        label=Label(text=self.display,size_hint=(.2,.2),pos_hint={'x':.3,'top':.2})
+        label=Label(text=self.display,size_hint=(.2,.05),pos_hint={'x':.3,'top':.2})
         self.add_widget(label)
         for i in range(len(items)):
             if i==len(items):
@@ -544,7 +480,7 @@ class Ads(Screen):
         pass
     def prev(self):
         self.display="loading video......."
-        label=Label(text=self.display,size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
+        label=Label(text=self.display,size_hint=(.2,.05),pos_hint={'x':.1,'top':.2})
         self.add_widget(label)
         for pieces in range(10):    
             if pieces>=5:
@@ -581,7 +517,8 @@ class Invest(Screen):
 
     price=''
 
-    image=''
+    image=StringProperty(images[0])
+    index=NumericProperty(0)
 
     display=''
 
@@ -643,35 +580,38 @@ class Invest(Screen):
             else:
                 return False
     def next(self):
-        items=[]
-        for i in len(items):
-            if i==0:
-                i=0+1
-                break
-            elif i==len(items):
-                display="indexfail check prev button  plz!!!!"
-                break
-            elif i==None:
-                display="no item!!!!"
-            else:
-                i=i+1
-                break
+        self.index +=1
+        self.index %=len(images)
+        self.image=images[self.index]
                 
         
     def sell(self):
-        # varaible to hld the passcode for the user 
-        code=TextInput(text="code ...",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2})
+         # varaible to hld the passcode for the user 
+        code=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.2})
+        
+        l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':1,'y':.4})
         #variable to hold the ammount of money to be sold
-        a_m=TextInput(text="code ...",size_hint=(.2,.1),pos_hint={'x':.3,'y':.2})
+        a_m=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.3})
+        l2=Label(text='name ',size_hint=(.2,.1),pos_hint={'x':1,'y':.3})
         #variable to hold the currency
-        ugx=TextInput(text="money ...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        ugx=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.4})
+        l3=Label(text='trust ',size_hint=(.2,.1),pos_hint={'x':1,'y':.2})
         #variable to hold the sellers name 
-        user_id=TextInput( text="user_id", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2})
+        user_id=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.5})
+        l4=Label(text='number',size_hint=(.2,.1),pos_hint={'x':1,'y':.1})
+
+        but=Button(text='send',size_hint=(.2,.1),pos_hint={'x':.8,'y':.0})
+
         
         self.add_widget(code)
+        self.add_widget(l1)
+        self.add_widget(l2)
+        self.add_widget(l3)
+        self.add_widget(l4)
         self.add_widget(a_m)
         self.add_widget(ugx)
         self.add_widget(user_id)
+        self.add_widget(but)
         
     def pay(self):
         pass
@@ -686,34 +626,39 @@ class Invest(Screen):
         pass
     def buy(self,*args):
         # varaible to hld the passcode for the user 
-        code=TextInput(text="shopcode ...",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2})
-        #variable to hold the ammount of money to be bought on 
-        a_m=TextInput(text="name...",size_hint=(.2,.1),pos_hint={'x':.3,'y':.2})
+        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        
+        l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18})
+        #variable to hold the ammount of money to be sold
+        a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l2=Label(text='name ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
         #variable to hold the currency
-        ugx=TextInput(text="money ...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
-        #variable to hold the buyers name 
-        user_id=TextInput( text="user_id", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2})
+        ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l3=Label(text='trust ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38})
+        #variable to hold the sellers name 
+        user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l4=Label(text='number',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48})
+
+        but=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.4,'y':.08})
+
         
         self.add_widget(code)
+        self.add_widget(l1)
+        self.add_widget(l2)
+        self.add_widget(l3)
+        self.add_widget(l4)
         self.add_widget(a_m)
         self.add_widget(ugx)
         self.add_widget(user_id)
+        self.add_widget(but)
+        
 
 
     def prev(self):
 
-        items=[]
-        for i in range(len(items)):
-            if i==len(items):
-                i=i-1
-                break
-            elif i==0:
-                display="fail index!!!!, check next button"
-            elif i==None:
-                display="no item!!!!"
-            else:
-                i=i-1
-        pass
+        self.index +=1
+        self.index %=len(images)
+        self.image=images[self.index]
     def deliver(self):
         label=Label(text='i watch',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
         self.add_widget(label)
@@ -785,7 +730,10 @@ class Forex(Screen):
 
     price=''
 
-    image=''
+   
+
+    image=StringProperty(images[0])
+    index=NumericProperty(0)
 
     display=''
 
@@ -847,19 +795,9 @@ class Forex(Screen):
             else:
                 return False
     def next(self):
-        items=[]
-        for i in len(items):
-            if i==0:
-                i=0+1
-                break
-            elif i==len(items):
-                display="indexfail check prev button  plz!!!!"
-                break
-            elif i==None:
-                display="no item!!!!"
-            else:
-                i=i+1
-                break
+        self.index +=1
+        self.index %=len(images)
+        self.image=images[self.index]
                 
         
     def sell(self):
@@ -871,11 +809,13 @@ class Forex(Screen):
         ugx=TextInput(text="money ...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
         #variable to hold the sellers name 
         user_id=TextInput( text="user_id", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2})
-        
+        #to finish the transaction 
+        finish=Button(text="finish...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
         self.add_widget(code)
         self.add_widget(a_m)
         self.add_widget(ugx)
         self.add_widget(user_id)
+        self.add_widget(finish)
         
     def pay(self):
         pass
@@ -884,9 +824,12 @@ class Forex(Screen):
             #a=Mtn()
             #a.mtnpay()
             #Mtn.mtntrans()
+            finish=Button(text="paid with airtel...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+            self.add_widget(finish)
             pass 
     def airtel(self):
-        pass
+        finish=Button(text="paid with airtel...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        self.add_widget(finish)
     def buy(self,*args):
         # varaible to hld the passcode for the user 
         code=TextInput(text="shopcode ...",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2})
@@ -896,7 +839,8 @@ class Forex(Screen):
         ugx=TextInput(text="money ...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
         #variable to hold the buyers name 
         user_id=TextInput( text="user_id", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2})
-        
+        finish=Button(text="finish...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        self.add_widget(finish)
         self.add_widget(code)
         self.add_widget(a_m)
         self.add_widget(ugx)
@@ -905,18 +849,9 @@ class Forex(Screen):
 
     def prev(self):
 
-        items=[]
-        for i in range(len(items)):
-            if i==len(items):
-                i=i-1
-                break
-            elif i==0:
-                display="fail index!!!!, check next button"
-            elif i==None:
-                display="no item!!!!"
-            else:
-                i=i-1
-        pass
+        self.index +=1
+        self.index %=len(images)
+        self.image=images[self.index]
     def deliver(self):
         label=Label(text='i watch',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
         self.add_widget(label)
@@ -967,7 +902,131 @@ class Settings():
     pass
 
 
+"""
+
+login screen
+"""
+logi=Login()
+
+class Login(Screen):
+    username=StringProperty()
+    password=StringProperty()
+    
+    Login.file_check(username,password)
+    def name(self):
+
+        self.username=self.ids.username.text
+        self.password=self.ids.password.text
+        
+        if logi.is_name():
+            return True
+        else:
+            return False 
+    def password(self):
+        if logi.is_password():
+            return True
+        else:
+            False
+    
+    def both(self):
+        if self.name() and self.password():
+            return True
+        else:
+            False 
+
+"""
+class to handle the credit section
+
+"""
+class Credit(Screen):
+    def credit(self):
+        # varaible to hld the passcode for the user 
+        code=TextInput(text="code ...",size_hint=(.2,.05),pos_hint={'x':.1,'y':.2})
+        #variable to hold the ammount of money to be saved 
+        a_m=TextInput(text="code ...",size_hint=(.2,.05),pos_hint={'x':.3,'y':.2})
+        #variable to hold the currency
+        ugx=TextInput(text="money ...",size_hint=(.2,.05),pos_hint={'x':.5,'y':.3})
+        #variable to hold the savers name 
+        user_id=TextInput( text="user_id", size_hint=(.2,.05),pos_hint={'x':.7,'y':.4})
+        btn=Button(text="credit",pos_hint={'x':.9,'top':.5},size_hint=(.2,.2),color=[0,1,0,1])
+        self.add_widget(code)
+        self.add_widget(a_m)
+        self.add_widget(ugx)
+        self.add_widget(user_id)
+        self.add_widget(btn)
+    # the function to carry out crediting the user 
+    def credited(self):
+        with open('credit.txt' ,'w') as file:
+            file.write("credited with an ammount of 10000000ugx...")
+            file.close()
+    # where cr stands for credit 
+    def cr_track(self):
+        pass
+    def eligable(self):
+        pass
+    def enter(self):
+        a=Inner()
+        a.a()
+
+
+"""
+class to handle the savings account
+
+"""
+
+class Savings(Screen):
+    def save(self):
+        code=TextInput(text="code ...",size_hint=(.2,.05),pos_hint={'x':.1,'y':.2})
+        money=TextInput(text="money ...",size_hint=(.2,.05),pos_hint={'x':.2,'y':.3})
+        receiver=TextInput( text="reciever_id", size_hint=(.2,.05),pos_hint={'x':.5,'y':.4})
+        btn=Button(text="Save ",pos_hint={'x':.7,'top':.5},size_hint=(.2,.05),color=[0,1,0,1])
+        receiver.border(16,16,16,16)
+        money.border(16,16,16,16)
+        btn.border(16,16,16,16)
+        code.border(16,16,16,16)
+        btn.bold=True
+        self.add_widget(code)
+        self.add_widget(btn)
+        self.add_widget(money)
+        self.add_widget(receiver)
+        
+    # the function to carry out crediting the user 
+    def saved(self):
+        with open('saved.txt' ,'w') as file:
+            file.write("saved  an ammount of 10000000ugx...")
+            file.close()
+class Media(Screen):
+    
+    def __init__(self):
+        self.programs=[]
+        self.hrs=0
+        self.days=0
+    def editor(self):
+        #changing  the font size of the words and alignment 
+        pass
+    def news(self):
+        # the news anchors platform for the new delivery
+        pass
+    def entertainment(self):
+        #tools for writing and editing the music 
+        pass
+    def art_of_life(self):
+        # overview of the general life 
+        pass
+    def movies(self):
+        #adding clips to form back the movies like they were 
+        pass
+    def best_ranking():
+        # employing quick alorithms tobe able to extract insight from the bigdata models ie recurent and reinforcement ann
+        pass
+
+
+# screenmanager variable
 sm=ScreenManager()
+sm.add_widget(Media(name="imedia"))
+sm.add_widget(Savings(name="savings"))
+sm.add_widget(Credit(name="credit"))
+sm.add_widget(Login(name="login"))
 sm.add_widget(Ishop(name="ishops"))
 sm.add_widget(Ads(name="ads"))
 sm.add_widget(Invest(name="invest"))
@@ -982,12 +1041,11 @@ class MainApp(App):
 
 
     def build(self):
-        self.title='iphone shop'
+        self.title='Cedes.inc'
+    
         return sm
     
-    def playing(self):
-        notification.notify(title='iphone shop', message='playing ..')
-        return Ads()
+    
 
 if __name__=='__main__':
     e=MainApp()
