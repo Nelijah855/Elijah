@@ -1,28 +1,37 @@
 
 
 
-def read_write(password,name):
-    password=open('password.txt','w')
-    password.write(str(password))
-    nam=open('name.txt','w')
-    nam.write(name)
 
-    
 
-nam=open('name.txt','w')
+ 
+
 
 password=open('password.txt','r')
 
 
 class Login():
     def __init__(self):
-        
-        pass
-    def file_check(self,x,y):
+        self.read_write('2013','cede')
+        self.file_check() 
+    def read_write(self,password1,name1):
         password=open('password.txt','w')
-        password.write(str(x))
+        password.write(password1)
         nam=open('name.txt','w')
-        nam.write(y)
+        print('working...............')
+        nam.write(name1)
+        
+    
+    def file_check(self):
+        
+        if self.is_name()==True or self.is_password==True:
+            print('true......')
+            return True
+        else:
+            print('false....')
+            return False
+
+    
+        
     def file_write(self):
         pass
     def file_read(self):
@@ -30,21 +39,32 @@ class Login():
 
     def is_name(self):
         nam=open('name.txt','r')
-        if nam.readlines()!=None:
-            return True
-        else:
-            
+        
+
+        x=nam.read()
+        print("this is x name value",x)
+        if x==None:
+            print('false name...........')
             return False
+            
+        else:
+            print('true name...........')
+            
+            return True
     
 
     def is_password(self):
-        if password.readlines()!=None:
+        x=password.read()
+        print("this is x password value",x)
+        if x==None:
+            print("false password......")
 
             
-            return True
-        else:
-        
             return False
-l=Login('elijah','comjj')
-print(l.is_name())
-print(l.is_password())
+        
+        else:
+            print('true password....')
+        
+            return True
+l=Login()
+l.is_password()

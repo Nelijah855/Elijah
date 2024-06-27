@@ -43,8 +43,9 @@ class Server():
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((host, 3000))
         sock.listen(100)
-        
+        """
         while True:
             new_soc,addr=sock.accept()
             new_soc.sendall('server [222.(123).453.1] company....'.encode('utf-8'))
             data=new_soc.recv(1024)
+"""

@@ -1,164 +1,223 @@
-<Ishop>:
 
+<Ishop>:
+    
     FloatLayout:
-        color: (0,1,0,1)
+        #first draeing canvas 
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            
+            Rectangle:
+                pos:200,100
+                size:100,100
+                
+                background_color: (0,.3,0,1)
+        # second draeing canvas
+        canvas.before:
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos[0]/4,self.pos[1]/4
+                size:self.size[0]/5,self.size[1]/5
+                
+        # third  drawing canvas
+        canvas:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                
+        # third  drawing canvas
+        
 
         Button:
-            id:member
-            text:"member"
+            id:cedes
+            text:"cedes"
+            background_color: (0,0,1,1)
             color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':0,'top':1}
-        AsyncImage:
-            size_hint: 0.3,0.05
+            size_hint: 0.3,0.1
             pos_hint:{'x':.1,'top':1}
-            source: 'icon.png'
-            allow_stretch: True
+            on_press:
+                #root.cli()
+                app.root.current='imedia'
+        
         Button:
             id:unity
             text:"unity"
+            background_normal: 'icon.png'
+            background_color: (1,0,0,1)
             color: (0,1,0,1)
             size_hint: 0.3,0.05
-            pos_hint:{'x':.2,'top':1}
-        AsyncImage:
-            size_hint: 0.2,0.05
-            pos_hint:{'x':.3,'top':1}
-            source: 'icon.png'
-            allow_stretch: True
+            pos_hint:{'x':.2,'top':.8}
+            on_press:
+                root.cli()
+        
         Button:
-            text:"cedes"
+            text:"services"
             color: (0,1,0,1)
+            background_normal: 'icon.png'
+            background_color: (0,0,0,1)
             size_hint: 0.3,0.05
-            pos_hint:{'x':.4,'top':1}
+            pos_hint:{'x':.5,'top':8}
+            on_press:
+                root.check()
+                app.root.current='cedes'
             
         AsyncImage:
-            size_hint: 0.1,0.1
+            
             pos_hint:{'x':.5,'top':1}
+            size_hint: 0.2,0.05
+
             source: 'icon.png'
             allow_stretch: True
             border_radius:10,10,10,10
+            
         Button:
+            id:Media
+            
             text:"Media"
+            #border:16,16,16,16
+            background_normal: 'icon.png'
+            background_color: (0,0,0,1)
             color: (0,1,0,1)
             size_hint: 0.2,0.1
-            pos_hint:{'x':.6,'top':1}
+            pos_hint:{'x':.8,'top':.8}
             on_press:
+                root.video()
                 app.root.current='imedia'
             
-        AsyncImage:
-            size_hint: 0.3,0.05
-            pos_hint:{'x':.7,'top':1}
-            source: 'icon.png'
-            allow_stretch: True
-            border_radius:10,10,10,10
 
         Button:
             id:account
             text:"Account:"
-            color: (0,1,0,1)
-            size_hint: 0.3,0.05
-            pos_hint:{'x':.8,'top':1}
-            
-        AsyncImage:
-            size_hint: 0.2,0.05
+            #border:16,16,16,16
+            color: (1,0,0,1)
+            size_hint: 0.2,0.08
             pos_hint:{'x':.9,'top':1}
-            source: 'icon.png'
-            allow_stretch: True
-            border_radius:10,10,10,10
-
-        AsyncImage:
-            size_hint: 0.2,0.05
-            pos_hint:{'x':1,'top':1}
-            source: 'icon.png'
-            allow_stretch: True
-            border_radius:10,10,10,10
+            on_press:
+                app.root.current='account'
+            
 
         Button:
             id:ads
             text:'ads'
             color: (0,1,0,1)
-            size_hint: 0.2,0.1
+            size_hint: 0.2,0.08
             pos_hint:{'x':.0,'top':.9}
             on_press:
                 app.root.current='ads'
         
         Button:
-            id:sell
-            text:'sell'
+            id:games
+            text:'Games'
             color: (0,1,0,1)
-            size_hint: 0.2,0.1
+            size_hint: 0.2,0.08
             pos_hint:{'x':.2,'top':.9}
             on_press:
-                root.sell()
+                #root.sell()
+                app.root.current="games"
+                
         
         Button:
-            id:buy
-            text:'buy '
+            id:tecs
+            text:'Tec'
             color: (0,1,0,1)
-            size_hint: 0.1,0.05
+            size_hint: 0.1,0.08
             pos_hint:{'x':.4,'top':.9}
             on_press:
                 root.buy()
+                app.root.current='tec'
         Button:
             id:foods
-            text:'foods.. '
+            text:'foods'
             color: (0,1,0,1)
-            size_hint: 0.2,0.1
+            size_hint: 0.2,0.08
             pos_hint:{'x':.6,'top':.9}
             on_press:
-                root.cart()
+                #root.video()
+                app.root.current='savings'
           
         
         Button:
 	        id:investor
-            text:'Invetor'
+            text:'Invest'
             color: (0,1,0,1)
-            size_hint: 0.16,0.1
+            size_hint: 0.2,0.08
             pos_hint:{'x':.8,'top':.9}
             on_press:
                 app.root.current='invest'
         Button:
     	    id:pay
-            text:'pay'
+            text:"Skills"
             color: (0,1,0,1)
             size_hint: 0.2,0.1
-            pos_hint:{'x':1,'top':.8}
+            pos_hint:{'x':.1,'top':.8}
             on_press:
                 root.pay()
+                app.root.current="skillo"
         Button:
-    	    is:mtn
-            text:'mtn'
+    	    id:hub
+            text:'Hub'
+            background_normal: 'icon.png'
+            background_color: (.5,0.5,1,1)
             color: (0,1,0,1)
-            size_hint: 0.2,0.1
+            size_hint: 0.2,0.08
             pos_hint:{'x':.4,'top':.8}
+            on_press:
+                root.cli()
         
         Button:
-    	    id:airtel
-            text:'airtel'
+    	    id:social
+            text:'social'
+            background_normal: 'icon.png'
+            background_color: (0,0,1,1)
             color: (0,1,0,1)
-            size_hint: 0.2,0.1
+            size_hint: 0.2,0.08
             pos_hint:{'x':.6,'top':.8}
+            on_press:
+                root.serv()
             
         
 
         TextInput:
             id:text
             color: (0,1,0,1)
-            size_hint: 0.3,0.05
+            size_hint: 0.2,0.05
+            #background_normal: 'icon.png'
+            background_color: (1,1,1,1)
             pos_hint:{'x':.6,'top':.65}
         Button:
-            id:coms
-            text:'coms'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.3,'top':.6}
+            id:search
+            text:'search'
+            color: (0,0,0,1)
+            background_color:(0,.5,0,1)
+            size_hint: 0.2,0.05
+            pos_hint:{'x':.79,'top':.65}
             on_press:
                 #root.airtel()
-        Label:
-            text:'sxc'
+                root.search()
+        Button:
+            id:coms
+            text:'private'
             color: (0,1,0,1)
             size_hint: 0.2,0.1
-            pos_hint:{'x':.8,'top':.4}
+            background_normal: 'icon.png'
+            background_color: (1,0,0,1)
+            pos_hint:{'x':.8,'top':.8}
+            on_press:
+                #root.airtel()
+                app.root.current="tec"
+        Button:
+            text:'tecfy'
+            color: (0,1,0,1)
+            background_normal: 'icon.png'
+            background_color: (0,0,1,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':.1,'top':.7}
+            on_press:
+                #root.airtel()
+                app.root.current="tec"
     
         AsyncImage:
             size_hint: 1,0.4
@@ -170,7 +229,7 @@
             id:logout
             text:"logout"
             background_color: (0,0,1,1)
-            size_hint: 0.1,0.1
+            size_hint: 0.15,0.05
             pos_hint:{'x':.8,'top':.1}
             background_normal: 'icon.png'
             on_press:
@@ -184,8 +243,212 @@
 
 <Ads>:
     FloatLayout:
-        color: (0,1,0,1)
+        #first draeing canvas 
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                background_color:(0,0,1,1)
+        # second draeing canvas
+        canvas.before:
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        # third  drawing canvas
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        # third  drawing canvas
+        canvas.before:
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+
         
+        AsyncImage:
+            size_hint: 0.1,0.06
+            pos_hint:{'x':.2,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"tfi"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.06
+            pos_hint:{'x':.3,'top':1}
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.4,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"pixe"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.06
+            pos_hint:{'x':.5,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.06
+            pos_hint:{'x':.6,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"E&t "
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.7,'top':1}
+        Button:
+            text:'invest'
+            color: (0,1,0,1)
+            size_hint: 0.1,0.06
+            background_color:(0,1,1,1)
+            pos_hint:{'x':.8,'top':.9}
+            on_press:
+                #root.prev()
+                app.root.current='invest'
+        
+            
+        AsyncImage:
+
+            size_hint: 0.1,0.06
+            pos_hint:{'x':.1,'top':1}
+            source: 'icon.png'
+        Button:
+            text:"Account"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.06
+            pos_hint:{'x':.9,'top':1}
+            on_press:
+                app.root.current="account"
+            
+        Button:
+            text:"612"
+            color: (0,1,0,1)
+            size_hint: 0.2,0.08
+            pos_hint:{'x':.1,'top':.9}
+            on_press:
+                root.video()
+                root.sound()
+
+        
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.2,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        
+        Button:
+            text:'forex'
+            color: (0,1,0,1)
+            size_hint:.2,.08
+            pos_hint:{'x':3,'top':.9}
+            on_press:
+                #root.prev()
+                app.root.current='forex'
+        Button:
+            text:'Back '
+            color: (0,1,0,1)
+            size_hint: .2,.08
+            pos_hint:{'x':.5,'top':.9}
+            on_press:
+                #root.next()
+                app.root.current='ishops'           
+        Button:
+            text:'Tools'
+            color: (0,1,0,1)
+            size_hint: .2,.08
+            pos_hint:{'x':.7,'top':.9}
+            on_press: 
+                root.sound()
+                root.video()
+        TextInput:
+            id:message	    
+            color: (0,1,0,1)
+            size_hint: 0.3,0.05
+            pos_hint:{'x':.2,'top':.8}
+        Button:
+            text:'send '
+            color: (0,1,0,1)
+            size_hint: 0.2,0.06
+            pos_hint:{'x':.9,'top':.8}
+            on_press: root.send()
+        
+        Button:
+            text:'exit '
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':1,'top':.8}
+            on_press: root.exit()
+
+        AsyncImage:
+            size_hint: .2,0.4
+            pos_hint:{'x':.8,'top':.2}
+            source: 'https://paraisx.000webhostapp.com/image/cafe1.jpg'
+
+        AsyncImage:
+            size_hint: .2,0.4
+            pos_hint:{'x':.7,'top':.3}
+            source: 'https://parisx.000webhostapp.com/image/cafe1.jpg'
+
+    
+
+
+        Video:
+    	    id:video
+            source:"https://parisx.000webhostapp.com/hit.mp4"
+            state:"play"
+            color: (0,1,0,1)
+            size_hint: 0.3,0.2
+            pos_hint:{'x':.4,'top':.2}
+
+        
+        
+
+<Invest>:
+    FloatLayout:
+    
+    #first draeing canvas 
+        canvas:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                background_color:(0,1,0,1)
+        # second draeing canvas
+        canvas:
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                background_color:(0,1,0,1)
+        # third  drawing canvas
+        canvas:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                background_color:(0,1,0,1)
+        # third  drawing canvas
+        canvas:
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
         AsyncImage:
             size_hint: 0.1,0.1
             pos_hint:{'x':.1,'top':1}
@@ -226,102 +489,167 @@
             allow_stretch: True
             border_radius:10,10,10,10
 
-        Label:
+
+        Button:
+            id:account
             text:"Account"
             color: (0,1,0,1)
             size_hint: 0.1,0.1
-            pos_hint:{'x':.8,'top':1}
-            
-        AsyncImage:
-            size_hint: 0.1,0.1
-            pos_hint:{'x':.9,'top':1}
-            source: 'icon.png'
-            allow_stretch: True
-            border_radius:10,10,10,10
-        
-        Button:
-            text:'forex'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':0,'top':.9}
-            on_press:
-                #root.prev()
-                app.root.current='forex'
-        Button:
-            text:'Back '
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.2,'top':.9}
-            on_press:
-                #root.next()
-                app.root.current='ishops'           
-        Button:
-            text:'Tools'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.4,'top':.9}
-            on_press: #root.load()
-        TextInput:
-            id:message	    
-            color: (0,1,0,1)
-            size_hint: 0.3,0.05
-            pos_hint:{'x':.4,'top':.6}
-        
-        Button:
-            text:'exit '
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.6,'top':.9}
-            on_press: root.exit()
-        AsyncImage:
-            size_hint: .2,0.4
-            pos_hint:{'x':.4,'top':.3}
-            source: 'https://paraisx.000webhostapp.com/image/cafe.jpg'
-            allow_stretch: True
-
-        AsyncImage:
-            size_hint: .2,0.4
-            pos_hint:{'x':.7,'top':.3}
-            source: 'https://parisx.000webhostapp.com/image/cafe1.jpg'
-
-            allow_stretch: True
-
-
-        VideoPlayer:
-    	    id:videoplayer
-            source:"https://parisx.000webhostapp.com/hit.mp4"
-            state:play
-            color: (0,1,0,1)
-            size_hint: 0.2,0.2
-            pos_hint:{'x':.1,'top':.4}
-
-        VideoPlayer:
-	        id:videoplayer
-            source:"https://parisx.000webhostapp.com/hit.mp4"
-            play: True
-            color: (0,1,0,1)
-            size_hint: 0.2,0.2
-            pos_hint:{'x':.1,'top':.2}
-        Button:
-            text:'future'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.2
             pos_hint:{'x':.8,'top':.9}
             on_press:
-                root.prev()
-                app.root.current='invest'
+                root.account()
+            
+        
+        Button:
+            text:"shares"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.1,'top':.9}
+            on_press:
+                root.shares()
+            
 
-<Invest>:
-    
+        Button:
+        
+            text:'home'
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.5,'top':.9}
+            on_press:
+                app.root.current='ishops'
+        
+        Button:
+            text:'cedes '
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.3,'top':.9}
+            on_press:
+                app.root.current="cedes"
+        
+        Button:
+            text:'pinnacle'
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.5,'top':.7}
+            on_press:
+                root.pinnacle()
+ 
+        Button:
+    	    
+            text:'dac project'
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.7,'top':.7}
+            on_press:
+                root.pay()
+        Button:
+    	    
+            text:'finance '
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.8,'top':.7}
+            on_press:
+                app.root.current='savings'
+
+        Button:
+        	    
+            text:'loan'
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.6,'top':.7}
+            on_press:
+                #root.pay()
+                app.root.current='credit' 
+        Button:
+    	    
+            text:'forex '
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.5,'top':.7}
+            on_press:
+                app.root.current='forex'
+
+        Button:
+            	    
+            text:'market'
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.4,'top':.7}
+            on_press:
+                root.trade()
+        Button:
+    	    id:cafe
+            text:'cafe'
+            color: (0,1,0,1)
+            size_hint: 0.1,.1
+            pos_hint:{'x':.3,'top':.7}
+            on_press:
+                root.cafe()
+        Label:
+            TextInput:
+                id:company
+                text:'company : cedes tecnologies'
+                size_hint: 0.1,0.05
+                pos_hint:{'x':.1,'top':.3}
+                background_color: (0,0,1,1)
+        Label:
+            TextInput:
+                id:company
+                text:'contacts : nelijah855@gmail.com'
+                size_hint: 0.1,0.05
+                pos_hint:{'x':.1,'top':.2}
+                background_color: (0,0,1,1)
+        Label:
+            TextInput:
+                id:company
+                text:'started : may/2023'
+                size_hint: 0.1,0.05
+                pos_hint:{'x':.1,'top':.1}
+                background_color: (0,0,1,1)
+            
+
+
+
+<Forex>:
+        
     FloatLayout:
-        color: (0,1,0,1)        
+        #first draeing canvas 
+        canvas:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        # second draeing canvas
+        canvas:
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        # third  drawing canvas
+        canvas:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        # third  drawing canvas
+        canvas:
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+
+        
         AsyncImage:
             size_hint: 0.1,0.1
             pos_hint:{'x':.1,'top':1}
             source: 'icon.png'
             allow_stretch: True
         Label:
-            text:"icons"
+            text:"usd"
             color: (0,1,0,1)
             size_hint: 0.1,0.1
             pos_hint:{'x':.2,'top':1}
@@ -331,7 +659,7 @@
             source: 'icon.png'
             allow_stretch: True
         Label:
-            text:"painters"
+            text:"cad"
             color: (0,1,0,1)
             size_hint: 0.1,0.1
             pos_hint:{'x':.4,'top':1}
@@ -343,7 +671,7 @@
             allow_stretch: True
             border_radius:10,10,10,10
         Label:
-            text:"han"
+            text:"visa"
             color: (0,1,0,1)
             size_hint: 0.1,0.1
             pos_hint:{'x':.6,'top':1}
@@ -356,8 +684,7 @@
             border_radius:10,10,10,10
 
         Label:
-            id:account
-            text:"Account"
+            text:"nike"
             color: (0,1,0,1)
             size_hint: 0.1,0.1
             pos_hint:{'x':.8,'top':1}
@@ -369,93 +696,362 @@
             allow_stretch: True
             border_radius:10,10,10,10
         Label:
-            text:"finance"
+            text:"$forex$"
             color: (0,1,0,1)
-            size_hint: 0.2,0.1
+            size_hint: 0.2,0.06
             pos_hint:{'x':0,'top':1}
-
+            
         Button:
-        
-            text:'home'
+            text:'Bereau'
             color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.1,'top':.9}
+            size_hint: 0.2,0.06
+            pos_hint:{'x':.2,'top':.9}
             on_press:
-                app.root.current='ishops'
-        
-        Button:
-            text:'cedes '
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.3,'top':.9}
-            on_press:
-                root.sell()
-        
-        Button:
-            text:'pinnacle'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.5,'top':.9}
-            on_press:
-                root.buy()
+                root.forex()
  
         Button:
     	    
-            text:'dac'
+            text:'Rates%'
             color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.2,'top':.8}
+            size_hint: 0.2,0.06
+            pos_hint:{'x':.4,'top':.9}
             on_press:
-                root.pay()
-        Button:
-    	    
-            text:'finance '
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.4,'top':.8}
-            on_press:
-                app.root.current='savings'
-
-        Button:
-        	    
-            text:'loan'
-            color: (0,1,0,1)
-            size_hint: 0.1,0.1
-            pos_hint:{'x':.1,'top':.6}
-            on_press:
-                root.pay()
-                app.root.current='credit'
-        Button:
-    	    
-            text:'forex '
-            color: (0,1,0,1)
-            size_hint: 0.1,0.05
-            pos_hint:{'x':.2,'top':.6}
-            on_press:
-                app.root.current='forex'
-
+                root.rates()
+    
         Button:
             	    
-            text:'market'
+            text:'Account'
             color: (0,1,0,1)
-            size_hint: 0.1,0.1
-            pos_hint:{'x':.1,'top':.4}
+            size_hint: 0.2,0.06
+            pos_hint:{'x':1,'top':1}
             on_press:
-                root.pay()
+                
+                app.root.current='savings'
         Button:
     	    
-            text:'cafe'
+            text:'stocks'
             color: (0,1,0,1)
-            size_hint: 0.1,.1
-            pos_hint:{'x':.2,'top':.4}
-            
-
-
-
-<Forex>:
+            size_hint: 0.2,0.06
+            pos_hint:{'x':.6,'top':.8}
+            on_press:
+                root.futures()
         
+        Button:
+            	    
+            text:'credit'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.06
+            pos_hint:{'x':.8,'top':.8}
+            on_press: app.root.current="credit"
+            
+        Button:
+    	    
+            text:'indexes'
+            color: (0,1,0,1)
+            size_hint: 0.2,0.06
+            pos_hint:{'x':.1,'top':.8}
+            on_press:
+                root.futures()
+        Label:
+            
+            id:company
+            text:'company : cedes tecnologies'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.3}
+            background_color: (0,0,1,1)
+        Label:
+            
+            id:contacts
+            text:'contacts : 0754562905'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.2}
+            background_color: (0,0,1,1)
+        Label:
+            
+            id:date
+            text:'started : may/2023'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.1}
+            background_color: (0,0,1,1)
+
+<Login>:
+    
     FloatLayout:
-        color: (0,1,0,1)
+        
+        
+        TextInput:
+            id:username
+            color: (0,1,0,1)
+            size_hint: 0.3,0.05
+            pos_hint:{'x':.6,'top':.8}
+
+        Label:
+            text:"username"
+            color: (0,1,0,1)
+            size_hint: 0.2,0.05
+            pos_hint:{'x':.3,'top':.8}
+            
+        
+        
+        TextInput:
+            id:password
+            color: (0,1,0,1)
+            size_hint: 0.3,0.05
+            pos_hint:{'x':.6,'top':.7}
+        Label:
+            text:"password"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.35,'top':.7}
+            
+        
+        Button:
+            text:"login"
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.5,'top':.6}
+            background_color: (0,0,1,1)
+            background_normal: 'icon.png'
+            on_press:
+                #root.register()
+                root.log()
+                app.root.current="ishops" 
+
+        Label:
+            
+            id:company
+            text:'company : cedes tecnologies'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.3}
+            background_color: (0,0,1,1)
+        Label:
+        
+            id:company
+            text:'contacts : nelijah855@gmail.com'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.2}
+            background_color: (0,0,1,1)
+        Label:
+            
+            id:company
+            text:'started : may/2023'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.1}
+            background_color: (0,0,1,1)
+
+
+
+
+
+<Credit>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                
+        
+        Button:
+            text:"insurance"
+            size_hint:(.2,.08)
+            pos_hint:{'x':0,'top':.8}
+            on_press:
+                root.insurance()
+        Button:
+            text:"savings"
+            size_hint:(.2,.08)
+            pos_hint:{'x':.2,'top':.8}
+            on_press:
+                app.root.current="savings"
+                #root.credit()
+        Button:
+            text:"register"
+            size_hint:(.2,.08)
+            pos_hint:{'x':.4,'top':.8}
+            on_press:
+                root.credit()
+        
+        Button:
+            text:"home"
+            size_hint:(.2,.08)
+            pos_hint:{'x':.6,'top':.8}
+            on_press:
+                
+                app.root.current="ishops"
+        Label:
+            
+            id:company
+            text:'company : cedes tecnologies'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.3}
+            background_color: (0,0,1,1)
+        Label:
+        
+            id:company
+            text:'contacts : nelijah855@gmail.com'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.2}
+            background_color: (0,0,1,1)
+        Label:
+            
+            id:company
+            text:'started : may/2023'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.1}
+            background_color: (0,0,1,1)
+
+
+<Savings>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                
+        
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.1,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"usd"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.2,'top':1}
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.3,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"cad"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.4,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.5,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"visa"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.6,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.7,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+
+        Label:
+            text:"nike"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.8,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.9,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"yen"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':0,'top':1}
+            
+        
+        Label:
+            text:"savings "
+            size_hint:(.2,.05)
+            pos_hint:{'x':.2,'top':.8}
+
+        Label:
+            text:"name... "
+            size_hint:(.2,.05)
+            pos_hint:{'x':.7,'top':.7}
+        Label:
+            text:"account "
+            size_hint:(.2,.05)
+            pos_hint:{'x':.7,'top':.6}
+        Label:
+            text:"ammount"
+            size_hint:(.2,.05)
+            pos_hint:{'x':.7,'top':.5}
+        Button:
+            text:"credit "
+            size_hint:(.2,.1)
+            pos_hint:{'x':.4,'top':.8}
+            on_press:
+                app.root.current="credit"
+                #root.save()
+        Label:
+            
+            id:company
+            text:'company : cedes tecnologies'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.3}
+            background_color: (0,0,1,1)
+        Label:
+        
+            id:company
+            text:'contacts : 0754562905'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.2}
+            background_color: (0,0,1,1)
+        Label:
+            
+            id:company
+            text:'started : may/2023'
+            size_hint: 0.1,0.05
+            pos_hint:{'x':.1,'top':.1}
+            background_color: (0,0,1,1)
+
+
+
+<Media>:
+    FloatLayout:
+
+        #first draeing canvas 
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        # second draeing canvas
+        canvas.before :
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        # third  drawing canvas
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        # third  drawing canvas
+        canvas.before:
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                
+
         
         AsyncImage:
             size_hint: 0.1,0.1
@@ -514,199 +1110,716 @@
             color: (0,1,0,1)
             size_hint: 0.2,0.1
             pos_hint:{'x':0,'top':1}
-
-        Button:
-        
-            text:'cad/ugx'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.1,'top':.9}
-            on_press:
-                app.root.current='savings'
-        
-        Button:
-            text:'usd/rwd'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.3,'top':.9}
-            on_press:
-                root.sell()
-        
-        Button:
-            text:'kwt/gpb'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.5,'top':.9}
-            on_press:
-                root.buy()
- 
-        Button:
-    	    
-            text:'pay'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.2,'top':.8}
-            on_press:
-                app.root.current='savings'
-        Button:
-    	    
-            text:'mtn'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.4,'top':.8}
-            on_press:
-                root.buy()
-        Button:
-            	    
-            text:'riyar'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.2,'top':.6}
-            on_press:
-                app.root.current='forex'
-        Button:
-    	    
-            text:'oman'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.4,'top':.6}
-            on_press:
-                app.root.current='forex'
-        
-        Button:
-            	    
-            text:'credit'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.2,'top':.4}
-            on_press: app.root.current="credit"
             
-        Button:
-    	    
-            text:'futures'
-            color: (0,1,0,1)
-            size_hint: 0.2,0.1
-            pos_hint:{'x':.4,'top':.4}
-            on_press:
-                app.root.current='forex'
 
-<Login>:
-    
-    FloatLayout:
+        Image:
+            source:'icon.png'
+            size_hint:2,.2
+            color:0,1,0,1
+            pos_hint:{'x':.5,'y':.1}
         
+
+
+        Button:
+            id: music
+            text: "music"
+            size_hint:.2,.08
+            pos_hint:{'x':.2,'y':.8}
+            background_color:(0,1,0,1)
+            on_press:
+                root.music()
+        Button:
+            id:movies
+            text: "movies"
+            size_hint:.2,.08
+            background_color:(0,1,0,1)
+            pos_hint:{'x':.4,'y':.8}
+            on_press:
+                root.movies()
+        
+        Button:
+            id:painter
+            text:"Editor"
+            size_hint:(.2,.08)
+            pos_hint:{'x':.6,'top':.8}
+            on_press:
+                
+                root.editor() 
+                #root.art_of_life()
+        Button:
+            id:presenter
+            text: "presenter"
+            size_hint:.2,.2
+            pos_hint:{'x':.8,'y':.8}
+            on_press:
+                root.presenter()
+        Button:
+            text: "sports"
+            size_hint:.2,.2
+            pos_hint:{'x':.2,'y':.7}
+            on_press:
+                root.show()
+                root.news() 
+        Button:
+            id:entertain
+            text: "Entertain"
+            size_hint:.2,.2
+            pos_hint:{'x':.4,'y':.7}
+            on_press:
+                #root.entertain()
+                app.root.current='account'
+        Button:
+            id:out
+            text: "out"
+            size_hint:.2,.08
+            pos_hint:{'x':6,'y':.7}
+            on_press:
+                root.exi()
+        
+        Button:
+            text:"home"
+            size_hint:(.2,.1)
+            pos_hint:{'x':.8,'top':.7}
+            on_press:
+                
+                app.root.current="ishops"
+        Video:
+            state:"play"
+            source:'x.mp4'
+            
+            size_hint:(.3,.2)
+            pos_hint:{'x':.5,'top':.4}
+        
+
+<Account>:
+    FloatLayout:
+
+        #first draeing canvas 
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos_hint:{'x':0,'top':.6}
+                size_hint:1,1
+        # second draeing canvas
+        canvas.before :
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos_hint:{'x':0,'top':0}
+                size_hint:.3,.6
+        # third  drawing canvas
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            Rectangle:
+                pos_hint:{'x':6,'top':0}
+                size_hint:.3,.6
+        # third  drawing canvas
+        canvas.before:
+            Color:
+                rgb:0,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                
+        
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.1,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
         Label:
-            text:"username"
+            text:"usd"
             color: (0,1,0,1)
-            size_hint: 0.1,0.05
+            size_hint: 0.1,0.1
             pos_hint:{'x':.2,'top':1}
-        TextInput:
-            id:username
-            color: (0,1,0,1)
-            size_hint: 0.2,0.05
+        AsyncImage:
+            size_hint: 0.1,0.1
             pos_hint:{'x':.3,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"cad"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.4,'top':1}
             
         AsyncImage:
             size_hint: 0.1,0.1
             pos_hint:{'x':.5,'top':1}
             source: 'icon.png'
             allow_stretch: True
+            border_radius:10,10,10,10
         Label:
-            text:"password"
+            text:"visa"
             color: (0,1,0,1)
-            size_hint: 0.1,0.05
-            pos_hint:{'x':.2,'top':.8}
-        TextInput:
-            id:password
-            color: (0,1,0,1)
-            size_hint: 0.2,0.05
-            pos_hint:{'x':.3,'top':.8}
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.6,'top':1}
             
         AsyncImage:
             size_hint: 0.1,0.1
-            pos_hint:{'x':.5,'top':.8}
+            pos_hint:{'x':.7,'top':1}
             source: 'icon.png'
             allow_stretch: True
-        Button:
-            text:"login"
-            size_hint: 0.1,0.05
-            pos_hint:{'x':.5,'top':.6}
-            background_color: (0,0,1,1)
-            background_normal: 'icon.png'
-            on_press: app.root.current="ishops"
+            border_radius:10,10,10,10
 
-
-
-<Credit>:
-    FloatLayout:
-        
         Label:
-            text:"Finance "
-            size_hint:(.2,.2)
-            pos_hint:{'x':.1,'top':.2}
+            text:"nike"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.8,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.9,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+                    
         Button:
-            text:"savings"
-            size_hint:(.2,.1)
-            pos_hint:{'x':.2,'top':.2}
+            id:visa
+            text: "Visa"
+            size_hint:.2,.08
+            pos_hint:{'x':.1,'top':.8}
+            on_press:root.holder()
+        Button:
+            text:"records"
+            size_hint:(.2,.08)
+            pos_hint:{'x':.3,'top':.8}
             on_press:
+                
+                root.records()
+        Button:
+            text:"wallet"
+            size_hint:(.2,.08)
+            pos_hint:{'x':.5,'top':.8}
+            on_press:
+                
                 app.root.current="savings"
-                root.credit()
         Button:
-            text:"register"
-            size_hint:(.2,.1)
-            pos_hint:{'x':.2,'top':.2}
+            text:"home"
+            size_hint:(.2,.08)
+            pos_hint:{'x':.7,'top':.8}
             on_press:
                 
-                root.enter()
-<Savings>:
-    FloatLayout:
-        
-        Label:
-            text:"savings "
-            size_hint:(.2,.1)
-            pos_hint:{'x':.1,'top':.3}
-
-        Label:
-            text:"name... "
-            size_hint:(.2,.05)
-            pos_hint:{'x':.3,'top':.3}
-        Label:
-            text:"account "
-            size_hint:(.2,.05)
-            pos_hint:{'x':.4,'top':.3}
-        Label:
-            text:"ammount"
-            size_hint:(.2,.05)
-            pos_hint:{'x':.1,'top':.3}
-        Button:
-            text:"credit "
-            size_hint:(.2,.1)
-            pos_hint:{'x':.2,'top':.3}
-            on_press:
-                app.root.current="credit"
-                root.save()
+                app.root.current="ishops"
 
 
-<Media>:
+<Games>:
     FloatLayout:
 
 
+        canvas.before:
+            Color:
+                rgb:1,0,0,1
+            Rectangle:
+                
+                pos:self.pos
+                size:self.size
+        canvas.before:
+            Color:
+                rgb:1,0,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        canvas.before:
+            Color:
+                rgb:1,0,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        canvas.before:
+            Color:
+                rgb:1,0,0,1
+            Ellipse:
+                pos:100,100
+                size:200,200
+                source:'icon.png'
+                angle_start:1
+                angle_end:360
 
-        Image:
-            source:'icon.png'
-            size_hint:1,.1
-            color:0,1,0,1
+        canvas.before:
+            Color:
+                rgb:0,1,0,1
+            Ellipse:
+                pos:20,300
+                size:50,50
+                source:'icon.png'
+                angle_start:0
+                angle_end:360
+        canvas.before:
+            Color:
+                rgb:0,0,1,1
+            Ellipse:
+                pos:50,500
+                size:50,50
+                source:'icon.png'
+                angle_start:1
+                angle_end:360
         
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.1,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"usd"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.2,'top':1}
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.3,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"cad"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.4,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.5,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"visa"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.6,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.7,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
 
-
-        Button:
-            text: "music"
+        Label:
+            text:"nike"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.8,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.9,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"yen"
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':0,'top':1}
+            
+        #Slider:
+            #id:slider
+            #min:-360
+            #max:360
+            #value:360
+        Label:
+            text:"mission"
             size_hint:.2,.2
-            pos_hint:{'x':1,'y':2}
-            on_press:app.root.current='ishops'
+            pos_hint:{'x':.1,'y':.1}
         Button:
-            text:"painter"
+            text:"wallet"
             size_hint:(.2,.1)
-            pos_hint:{'x':.2,'top':.4}
+            pos_hint:{'x':.3,'top':.1}
             on_press:
                 
-                root.painter()
+                app.root.current="savings"
+        Button:
+            text:"home"
+            size_hint:(.2,.1)
+            pos_hint:{'x':.5,'top':.1}
+            on_press:
+                
+                app.root.current="ishops"
+
+<Tec>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgb:1,0,1,1
+            Rectangle:
+                
+                pos:self.pos
+                size:self.size
+        canvas.before:
+            Color:
+                rgb:1,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        canvas.before:
+            Color:
+                rgb:1,0,1,1
+            Rectangle:
+                pos:100,10
+                source:'icon.png'
+                size:200,200
+                
+        
+        
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.1,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"usd"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.2,'top':1}
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.3,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"cad"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.4,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.5,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"visa"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.6,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.7,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+
+        Label:
+            text:"nike"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.8,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.9,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"yen"
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':0,'top':1}
+            
+
+        Button:
+            id:prog
+            text:'sktec'
+            pos_hint:{'x':.8,'top':.5}
+            size_hint:.2,.1
+            on_press:
+                #root.prog()
+                app.root.current='skillo'
+        Button:
+            id:net
+            text:'fintec'
+            pos_hint:{'x':.8,'top':.2}
+            size_hint:.2,.1
+            on_press:
+                root.sci()
+        Button:
+            id:Data
+            text:'research'
+            pos_hint:{'x':.8,'top':.3}
+            size_hint:.2,.1
+            on_press:
+                root.auto()
+        Button:
+            id:apps
+            text:'mediatec'
+            pos_hint:{'x':.8,'top':.4}
+            size_hint:.2,.1
+            on_press:
+                root.apps()
+        Button:
+            id:apps
+            text:'home'
+            pos_hint:{'x':.8,'top':.4}
+            size_hint:.2,.1
+            on_press:
+                app.root.current="ishops"
+
+                
+
+        
+            
+        Button:
+            id:prog
+            text:'Itec'
+            pos_hint:{'x':.6,'top':.5}
+            size_hint:.2,.1
+            on_press:
+                root.prog()
+        Button:
+            id:net
+            text:'sci'
+            pos_hint:{'x':.6,'top':.2}
+            size_hint:.2,.1
+            on_press:
+                root.sci()
+        Button:
+            id:Data
+            text:'Auto'
+            pos_hint:{'x':.6,'top':.3}
+            size_hint:.2,.1
+            on_press:
+                root.auto()
+        Button:
+            id:apps
+            text:'Aero'
+            pos_hint:{'x':.6,'top':.4}
+            size_hint:.2,.1
+            on_press:
+                root.apps()
+        #Slider:
+         #   id:slider
+          #  min:-360
+           # max:360
+            #value:360
+        Label:
+            text:"slider"
+            size_hint:.2,.2
+            pos_hint:{'x':.3,'y':.8}
+        #Camera:
+         #   id: camera
+          #  resolution: (640, 480)
+           # play: False
+        
+        Button:
+            text: 'Capture'
+            size_hint_y: None
+            height: '48dp'
+            on_press: root.capture()
+<Skillo>:
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgb:1,0,0,1
+            Rectangle:
+                
+                pos:self.pos
+                size:self.size
+        canvas.before:
+            Color:
+                rgb:1,1,0,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        canvas.before:
+            Color:
+                rgb:1,0,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+
+        
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.1,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"usd"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.2,'top':1}
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.3,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"cad"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.4,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.5,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"visa"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.6,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.7,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+
+        Label:
+            text:"nike"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.8,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.9,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"yen"
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':0,'top':1}
+            
+        Button:
+            id:prog
+            text:'programing'
+            pos_hint:{'x':.2,'top':.1}
+            background_color:1,0,1,1
+            size_hint:.2,.08
+            on_press: 
+                root.movies()
+        Button:
+            id:net
+            text:'Networking'
+            background_color:0,1,1,1
+            pos_hint:{'x':.2,'top':.2}
+            size_hint:.2,.08
+            on_press:
+                root.presenter()
+        Button:
+            id:Data
+            text:'Database'
+            pos_hint:{'x':.2,'top':.3}
+            
+            size_hint:.2,.08
+            on_press:
+                root.news()
+        Button:
+            id:apps
+            text:'Application'
+            pos_hint:{'x':.2,'top':.4}
+            background_color:0,1,0,1
+            size_hint:.2,.08
+            on_press:
+                root.show()
+<Cedes>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgb:1,0,0,1
+            Rectangle:
+                
+                pos:self.pos
+                size:self.size
+        
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.1,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"usd"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.2,'top':1}
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.3,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+        Label:
+            text:"cad"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.4,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.5,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"visa"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.6,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.7,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+
+        Label:
+            text:"nike"
+            color: (0,1,0,1)
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.8,'top':1}
+            
+        AsyncImage:
+            size_hint: 0.1,0.1
+            pos_hint:{'x':.9,'top':1}
+            source: 'icon.png'
+            allow_stretch: True
+            border_radius:10,10,10,10
+        Label:
+            text:"yen"
+            color: (0,1,0,1)
+            size_hint: 0.2,0.1
+            pos_hint:{'x':0,'top':1}
+            
+
+
+        Button:
+            text: 'Cedes'
+            size_hint_y: None
+            height: '48dp'
+            on_press: root.admin()
+        Button:
+            id:news
+            text:'finance'
+            pos_hint:{"x":.4,'top':.6}
+            size_hint:.2,.08
+            on_press:
+                root.financier()
+        Button:
+            id:profile
+            text:'profile'
+            pos_hint:{"x":.4,'top':.4}
+            size_hint:.2,.08
+            on_press:
+                root.show()
+        Button:
+            id:manager
+            text:'managers'
+            pos_hint:{"x":.4,'top':.2}
+            size_hint:.2,.08
+            on_press:
+                root.manager()
+

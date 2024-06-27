@@ -13,10 +13,13 @@ class Cloud():
 class Cyber():
     pass
 class Crypto():
+    sha5=[]
     pass 
 class Nanotec():
     pass
 class Biotec():
+    elements=[]
+    melting=[]
     pass
 class imtec():
     pass
@@ -37,6 +40,9 @@ class Kinematics():
     magnet_f=0
     electric_f=0
     current_d=0
+    brakes=[]
+    driver=""
+
 
     
 

@@ -20,3 +20,7 @@ class Cedes():
     @property
     def var():
         pass
+
+
+
+    
