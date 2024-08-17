@@ -30,11 +30,11 @@ class myCamera():
         
         _,frame=cap.read()
         print('true')
-    else:
-        print("FALSE")
+    print('true')
     while True:
-        
-        cap.release()
+        cap.imshow()
+        if cap.waitkey(1) ==True and 0xFF==ord('q'):
+            cap.release()
     
     
 

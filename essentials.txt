@@ -1,10 +1,13 @@
 
+
+
 ...............for android.........................
 
 #pip install buildozer
 #buildozer init
 #buildozer -v android debug deploy run
 #buildozer android  release
+
 
 debuging
 
@@ -16,8 +19,7 @@ debuging
 
 ....................for windows.....................
 
-#python -m PyInstaller --onefile --name cider main.py
-#python -m PyInstaller --name cider --icon icon.ico main.py
+#python -m PyInstaller --noconsole --onefile --name Atomics --icon icon.ico main.py
 #python -m PyInstaller touchtracer.spec
 
 

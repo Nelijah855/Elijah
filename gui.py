@@ -20,8 +20,9 @@ class Inner(FloatLayout):
 
     def pop(self):
         # create content and add to the popup
-        content = Button(text='seen!')
-        popup = Popup(content=content, auto_dismiss=False)
+        content = Button(text='atomics')
+        popup = Popup(title='atomics telcom ',content=content, auto_dismiss=False,size_hint=(.5,.2))
+        self.add_widget(Button(text='atomics tec',size_hint=(.2,.1),pos_hint={'x':.7,'top':.2}))
         
         
 # bind the on_press event of the button to the dismiss function
@@ -174,10 +175,10 @@ class Inner(FloatLayout):
         l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18})
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
-        l2=Label(text='name ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
+        l2=Label(text='username ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
         #variable to hold the currency
         ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
-        l3=Label(text='trust ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38})
+        l3=Label(text='money',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38})
         #variable to hold the sellers name 
         user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
         l4=Label(text='number',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48})
@@ -207,10 +208,10 @@ class Inner(FloatLayout):
         l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18})
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
-        l2=Label(text='name ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
+        l2=Label(text='username ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
         #variable to hold the currency
         ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
-        l3=Label(text='trust ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38})
+        l3=Label(text='money',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38})
         #variable to hold the sellers name 
         user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
         l4=Label(text='number',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48})
@@ -236,10 +237,10 @@ class Inner(FloatLayout):
         l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18})
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
-        l2=Label(text='name ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
+        l2=Label(text='username ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
         #variable to hold the currency
         ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
-        l3=Label(text='trust ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38})
+        l3=Label(text='money ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38})
         #variable to hold the sellers name 
         user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
         l4=Label(text='number',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48})
@@ -293,34 +294,34 @@ class Inner(FloatLayout):
     def investment(self):
         ammount=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
         
-        username=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18})
+        username=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':.6,'y':.2})
         #variable to hold the ammount of money to be sold
         time=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
-        handler=Label(text='name ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
+        handler=Label(text='username ',size_hint=(.1,.1),pos_hint={'x':.6,'y':.3})
         #variable to hold the currency
         intrest=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
-        
+        handler2=Label(text='rate%',size_hint=(.1,.1),pos_hint={'x':.6,'y':.4})
         self.add_widget(ammount)
         self.add_widget(username)
         self.add_widget(time)
-        self.add_widget(intrest)
+        self.add_widget(handler)
+        self.add_widget(handler2)
         
         self.add_widget(handler)
-        but=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.4,'y':.08} ,on_press=self.show )
+        but=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.4,'y':.1} ,on_press=self.show )
 
         self.add_widget(but)
         
         
-        return ammount,username,time,handler,intrest
     
     
     def show(self):
         l=Label(text=' [share] [invest] in cede.inc ',size_hint=(.2,.1),pos_hint={'x':.8,'y':.3})
         self.add_widget(l)
-        time.sleep(3)
+        
         self.remove_widget(l)
     def pinnacle(self):
-        l=Label(text=' invest in cede.inc with [pinnacle] ',size_hint=(.2,.1),pos_hint={'x':.8,'y':.3})
+        l=Label(text=' atomics lab ',size_hint=(.2,.1),pos_hint={'x':.8,'y':.3})
         self.add_widget(l)
      
         self.remove_widget(l)

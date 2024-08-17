@@ -1,35 +1,32 @@
 
 
-
-#Config.set("kivy", "keyboard_layout", 'qwerty')
-
-
 """
 libraries reqiured 
 
-mysql.connector,plyer, ffpyplayer,mtnmomo
+mysql.connector,plyer,ffpyplayer,mtnmomo,opencv-python,httplib,
+matplotlib,numpy,bio,sympy,tradingeconomics,global-chem,pytube,
+sklearn,nltk=3.5
 
 """
-#project class [][][][]
 from gui import Inner
 #from login import Login
-#import client
-#import server
 #m mtn import Mtn
-from network import Client,Server
-#from message import Message
-#from online_box import Online
-#from account import Account
+#from network import Client,Server
+
 #from security import Loophole,Blockchain,Phisphing,Crsf,Crypto
-#project class [][][][]
 
 from kivy.properties import NumericProperty
+from kivy.uix.bubble import Bubble
+bubble=Bubble()
+
+
 
 
 import kivy
 import mysql.connector 
 kivy.require('2.0.0')
 import time
+import datetime
 import socket
 from kivy.properties import ListProperty, StringProperty,ObjectProperty
 import random
@@ -45,26 +42,34 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.video import Video
 from kivy.uix.image import Image
-from kivy.uix.videoplayer import VideoPlayer
-#from plyer import notification
+# the class to be used to animate wigdets e.g to move button from one end to another 
+from kivy.animation import Animation
 
+#clock class to replace the while loop that would have been needed to be employed 
+from kivy.clock import Clock
+#from plyer import notification
+#from utils import CFEVideoconf,image_resize
 import os
 from kivy.graphics import Rectangle,Color
 import sys
 import sqlite3
 #from kivy.uix.widget import Widget
 
-from kivy.core.audio import SoundLoader
+#from kivy.core.audio import SoundLoader
 
 
 import os
 import sys
-
+#import cv2
 
 images=['']
 
-print("import done")
 
+
+blue=(.05,.04,.4,1)
+lightb=(.04,.07,1,1)
+black=(0.01,.04,.044,1)
+minsk=(.02,.03,.4,1)
 
 
 #class to handle the database
@@ -106,8 +111,8 @@ class Mysql():
 class Sqlite():
     def __init__(self,sql):
         
-        self.conn = sqlite3.connect('userrs_device.db')
-        self.conn.execute('''DROP TABLE IF EXISTS ig_users; ''')
+        self.conn = sqlite3.connect('users_0.db')
+        self.conn.execute('''DROP TABLE IF EXISTS users; ''')
         self.sql='''CREATE TABLE foci
          (ID INT PRIMARY KEY     NOT NULL,
          NAME           TEXT    NOT NULL,
@@ -130,20 +135,24 @@ class Sqlite():
 
 #class to exit the application on exiting 
 class Exit():
-    def exit(self):
+    def exi(self):
         sys.exit(0)
         return 0
+def exi():
+    pass
+b=exi()
+
 
 # class  for handling the drawing of the rectangle 
 class Recta_(FloatLayout):
     def canvas_inc_x(self):
-        but=Button(text="up",on_press='')
+        but=Button(text="up",on_press=b,background_color= (0,0.5,1,1))
         self.add_widget(but)
         return 
 
 
     def canvas_inc_y(self,y):
-        but=Button(text="up",on_press='')
+        but=Button(text="up",on_press=b,background_color= (0,0.5,1,1))
         self.add_widget(but)
         
         pass
@@ -152,7 +161,7 @@ class Recta_(FloatLayout):
     def draw_rectangle(self):
         with self.canvas:
             Color(.23,1,.34)
-            Rectangle(source='',pos=self.pos,size=self.size)
+            Rectangle(source='icon.png',pos=self.pos,size=self.size,background_color= (0,0.5,1,1))
 
 
 
@@ -189,7 +198,7 @@ class A_M_api():
 
 """
 
-class to generator code for working with the ics company
+class to generator code for working with the atomics company
 
 
 
@@ -210,6 +219,7 @@ class Ishop(Screen):
     address=''
 
     price=''
+    search=True
 
     #image=StringProperty(images[0])
     #index=NumericProperty(0)
@@ -224,17 +234,18 @@ class Ishop(Screen):
     def cli(self):
         #Client.connector()
         Inner().pop()
+        
     def serv(self):
         #Server.listener()
-        print(" #comment section")
+        Inner().progress()
     def logout(self):
         self.ids.logout.text='out'
-        time.sleep(3)
     def check():
         Inner().check()  
     def loop(self):
-        for i in range(100000):
-            loop=i
+
+        for i in range(4):
+            self.add_widget(Label(text='micronet',pos_hint=(.2,.1*i),size_hint=(.2,0.08),background_color= (0,0.5,1,1)))
 
     
     def is_broker(self):
@@ -244,7 +255,19 @@ class Ishop(Screen):
             return True
         else:
             return False
-
+        
+        """
+        function responsible for arrenging the shops in the app
+        """
+    def shops(self):
+        # this variable is set True with database after the user pays and finds the path of the video in the video table with db 
+        paid=True
+        #the path from the database 
+        path='x.mp4'
+        if paid:
+            #FUNCTION TO LOAD THE VIDEO OF THE SHOP
+            video=Video(source=path,state='play',background_color= (0,0.5,1,1))
+            self.add_widget(video)
     def is_commision(self):
 
         #varaible to hold goods sold aday
@@ -253,6 +276,8 @@ class Ishop(Screen):
             return True
         else:
             return False
+
+    
         
     def retail(self):
         #price of the item
@@ -276,7 +301,7 @@ class Ishop(Screen):
         #selling price of the item
         tax=.1*min_p
         return True
-
+    
         
     def search(self):
         """
@@ -289,7 +314,15 @@ class Ishop(Screen):
             else:
                 return False
                 """
-        print('searching.....................')
+        label=Label(text='micronet',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
+        search=Label(text='searching...',size_hint=(.2,.1),pos_hint={'x':.6,'top':.5})
+        self.add_widget(search)
+
+        if self.search==True:
+            search1=Label(text='Found(1000)',size_hint=(.2,.1),pos_hint={'x':.6,'top':.4})
+            self.add_widget(search1)
+        else:
+            pass
     def nex(self):
         self.index +=1
         self.index %=len(images)
@@ -316,10 +349,7 @@ class Ishop(Screen):
         #variable to hold the sellers name 
         user_id=TextInput( text="user_id", size_hint=(.2,.05),pos_hint={'x':.1,'y':.5},color=(0,1,0,1),background_color=(0,1,0,1))
         finish=Button( text="finish", size_hint=(.2,.05),pos_hint={'x':.1,'y':.6},color=(0,1,0,1),background_color=(0,1,0,1),on_pres=self.clear_w)
-        code.border(16,16,16,16)
-        a_m.border(16,16,16,16)
-        user_id.border(16,16,16,16)
-        finish.border(16,16,16,16)
+        
         
         self.add_widget(finish)
         self.add_widget(code)
@@ -330,19 +360,25 @@ class Ishop(Screen):
     video function
     """
     def video(self):
-        vid=Video(source='',preview='icon.png',state='play',options={'eos':'loop'},pos_hint={'x':.7,'y':.5})
+        vid=Video(source='x.mp4',preview='icon.png',state='play',options={'eos':'loop'},pos_hint={'x':.3,'y':.0},size_hint=(.4,.3))
         self.add_widget(vid)
 
         
     def pay(self):
-        a_m=TextInput(text="code ...",size_hint=(.2,.05),pos_hint={'x':.1,'y':.3},color=(0,1,0,1),background_color=(0,1,0,1))
+        search=Label(text='usercode ',size_hint=(.2,.1),pos_hint={'x':.3,'top':.3})
+        a_m=TextInput(size_hint=(.2,.05),pos_hint={'x':.1,'y':.3},color=(0,1,0,1),background_color=(0,1,0,1))
         #variable to hold the currency
-        ugx=TextInput(text="money ...",size_hint=(.2,.05),pos_hint={'x':.1,'y':.4},color=(0,1,0,1),background_color=(0,1,0,1))
-        #variable to hold the sellers name 
-        user_id=TextInput( text="user_id", size_hint=(.2,.05),pos_hint={'x':.1,'y':.5},color=(0,1,0,1),background_color=(0,1,0,1))
+        search1=Label(text='money',size_hint=(.2,.1),pos_hint={'x':.3,'top':.4})
+        ugx=TextInput(size_hint=(.2,.05),pos_hint={'x':.1,'y':.4},color=(0,1,0,1),background_color=(0,1,0,1))
+        #variable to hold the sellers name
+        search2=Label(text='userid',size_hint=(.2,.1),pos_hint={'x':.3,'top':.5},background_color= (0,0.5,1,1)) 
+        user_id=TextInput( size_hint=(.2,.05),pos_hint={'x':.1,'y':.5},color=(0,1,0,1),background_color=(0,1,0,1),focus=True,multiline=False)
         self.add_widget(a_m)
         self.add_widget(ugx)
         self.add_widget(user_id)
+        self.add_widget(search)
+        self.add_widget(search1)
+        self.add_widget(search2)
     def clear_w(self):
         self.remove_widget(code)
         self.remove_widget(finish)
@@ -356,10 +392,12 @@ class Ishop(Screen):
         audio function
         """
     def audio(self):
-        sound=SoundLoader.load('')
+        """sound=SoundLoader.load('x.mp3')
         self.add_widget(sound)
         if True:
-            sound.play()
+            sound.play()"""
+        pass
+
     
     def mtn(self):
             #a=Mtn()
@@ -372,6 +410,10 @@ class Ishop(Screen):
     
     def airtel(self):
         pass
+    def entering(self,value):
+        self.add_widget(Label(text=value,size_hint=(.2,.05),pos_hint={'x':.7,'y':.2}),background_color=minsk)
+    def pressed(self):
+        self.add_widget(Label(text="sent order",size_hint=(.3,.05),pos_hint={'x':.3,'y':.2}),background_color=blue)
     def buy(self,*args):
         # varaible to hld the passcode for the user 
         code=TextInput(text="shopcode ...",size_hint=(.2,.05),pos_hint={'x':.7,'y':.5},background_color=(0,1,1,1))
@@ -381,7 +423,9 @@ class Ishop(Screen):
         ugx=TextInput(text="money ...",size_hint=(.2,.05),pos_hint={'x':.7,'y':.3},background_color=(0,1,1,1))
         #variable to hold the buyers name 
         user_id=TextInput( text="user_id", size_hint=(.2,.05),pos_hint={'x':.7,'y':.2},background_color=(0,1,1,1))
+        user_id.bind(on_text_validate=self.entering)
         finish=Button( text="finish", size_hint=(.2,.05),pos_hint={'x':.7,'y':.1},background_color=(0,1,1,1),on_press=self.clear_w)
+        finish.bind(on_press=self.pressed())
         self.add_widget(code)
         self.add_widget(finish)
         self.add_widget(a_m)
@@ -395,7 +439,7 @@ class Ishop(Screen):
         self.index %=len(images)
         self.image=images[self.index]
     def deliver(self):
-        label=Label(text='i watch',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
+        label=Label(text='micronet',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2},background_color= (.2,0.5,1,1))
         self.add_widget(label)
         for pieces in range(10):    
             if pieces>=5:
@@ -415,7 +459,7 @@ class Ishop(Screen):
     
 
     def cart(self):
-        label=Label(text='i watch',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
+        label=Label(text='auto ',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2},background_color= (0,0.5,1,1))
         self.add_widget(label)
         return "cart..."
     
@@ -423,8 +467,9 @@ class Ishop(Screen):
 
     def chat(self):
         
-        Client.connect()
-        var='sending ...sms..'
+        #Client.connect()
+        #var='connecting'
+        pass 
 
         return 
     def rec_(self):
@@ -435,9 +480,9 @@ class Ishop(Screen):
             y=y+10
             with self.canvas:
                 Color(.1,1,.2,1)
-                Rectangle(source='',pos=(x,y),size=(100,100))
+                Rectangle(source='icon.png',pos=(x,y),size=(100,100),background_color= (0,0.5,1,1))
     def view_shops(self):
-        but=Button(text="view shops", on_press=self.rec_, pos=(100,100),size=(100,100))
+        but=Button(text="view shops", on_press=self.rec_, pos=(100,100),size=(100,100),background_color= (0,0.5,1,1))
         self.add_widget(but)
 
 class Mode():
@@ -453,6 +498,7 @@ class Mode():
     def screen_o(self):
         potr=1
         land=0
+        
     def screen_w_h(self):
         self.width
         self.height
@@ -482,18 +528,28 @@ class Ads(Screen):
         
     def sell(self):
         # varaible to hld the passcode for the user 
-        code=TextInput(text="code ...",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2})
+        search=Label(text='usercode ',size_hint=(.2,.1),pos_hint={'x':.3,'top':.2},background_color= (0,0.5,1,1))
+        code=TextInput(size_hint=(.2,.1),pos_hint={'x':.1,'y':.2})
         #variable to hold the ammount of money to be sold
-        a_m=TextInput(text="code ...",size_hint=(.2,.1),pos_hint={'x':.3,'y':.2})
+        search1=Label(text='code ',size_hint=(.2,.1),pos_hint={'x':.3,'top':.3},background_color= (0,0.5,1,1))
+        a_m=TextInput(size_hint=(.2,.1),pos_hint={'x':.1,'y':.3})
         #variable to hold the currency
-        ugx=TextInput(text="money ...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        search2=Label(text='money',size_hint=(.2,.1),pos_hint={'x':.3,'top':.4},background_color= (0,0.5,1,1))
+        ugx=TextInput(size_hint=(.2,.1),pos_hint={'x':.3,'y':.4})
         #variable to hold the sellers name 
-        user_id=TextInput( text="user_id", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2})
+        search3=Label(text='userid',size_hint=(.2,.1),pos_hint={'x':.3,'top':.5},background_color= (0,0.5,1,1))
+        user_id=TextInput(size_hint=(.2,.1),pos_hint={'x':.3,'y':.5})
+        
         
         self.add_widget(code)
         self.add_widget(a_m)
         self.add_widget(ugx)
         self.add_widget(user_id)
+        self.add_widget(search)
+        self.add_widget(search1)
+        self.add_widget(search2)
+        self.add_widget(search3)
+
         
     def pay(self):
         
@@ -517,25 +573,31 @@ class Ads(Screen):
         self.add_widget(user_id)
     
     def video(self):
-        vid=Video(source='',preview='icon.png',state='play',options={'eos':'loop'},size_hint=(.2,.05),pos_hint={'x':.3,'top':.2})
+        vid=Video(source='x.mp4',preview='icon.png',state='play',options={'eos':'loop'},size_hint=(.5,.2),pos_hint={'x':0,'top':.2})
         self.add_widget(vid)
         
     
 
 
     def sound(self):
-        sound=SoundLoader.load('x.mp3')
+        #sound=SoundLoader.load('x.mp3')
+        self.add_widget(Button(text='Audio',size_hint=(.2,.05),pos_hint={'x':.8,'top':.2},background_color= (0,0.5,1,1)))
         
         if True:
-            sound.play()
+            #sound.play()
+            pass
+
+        else:
+            pass 
+
 
     def send(self):
         return 'sent'
     def prev(self):
         self.display="loading video......."
-        label=Label(text='<=',size_hint=(.2,.05),pos_hint={'x':.1,'top':.2})
+        label=Button(text='video',size_hint=(.2,.05),pos_hint={'x':.1,'top':.2},background_color= (1,0.5,1,1))
         self.add_widget(label)
-        self.manager.current='ishps'
+    
 
 
 """
@@ -572,8 +634,9 @@ class Invest(Screen):
 
     
     def loop(self):
-        for i in range(100000):
-            loop=i
+        for i in range(10):
+            self.add_widget(Label(text=i,size_hint=(.1,.1),pos_hint={'x':.2,'top':.1},background_color= (0,0.5,1,1)))
+            
 
     
     def is_broker(self):
@@ -635,18 +698,18 @@ class Invest(Screen):
          # varaible to hld the passcode for the user 
         code=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.2})
         
-        l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':1,'y':.4})
+        l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':1,'y':.4},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.3})
-        l2=Label(text='name ',size_hint=(.2,.1),pos_hint={'x':1,'y':.3})
+        l2=Label(text='name ',size_hint=(.2,.1),pos_hint={'x':1,'y':.3},background_color= (0,0.5,1,1))
         #variable to hold the currency
         ugx=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.4})
-        l3=Label(text='trust ',size_hint=(.2,.1),pos_hint={'x':1,'y':.2})
+        l3=Label(text='trust ',size_hint=(.2,.1),pos_hint={'x':1,'y':.2},background_color= (0,0.5,1,1))
         #variable to hold the sellers name 
-        user_id=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.5})
-        l4=Label(text='number',size_hint=(.2,.1),pos_hint={'x':1,'y':.1})
+        user_id=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.6})
+        l4=Label(text='number',size_hint=(.2,.1),pos_hint={'x':1,'y':.1},background_color= (0,0.5,1,1))
 
-        but=Button(text='send',size_hint=(.2,.1),pos_hint={'x':.8,'y':.0})
+        but=Button(text='send',size_hint=(.2,.1),pos_hint={'x':.8,'y':.0},background_color= (1,0.5,1,1))
 
         
         self.add_widget(code)
@@ -659,25 +722,25 @@ class Invest(Screen):
         self.add_widget(user_id)
         self.add_widget(but)
         if but.state=='down':
-            self.manager.current='ads'
+            pass
         
     def pay(self):
         pass
     def shares(self):
         code=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.2})
         
-        l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':1,'y':.4})
+        l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':1,'y':.4},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.2,.05),pos_hint={'x':.6,'y':.3})
-        l2=Label(text='name ',size_hint=(.2,.1),pos_hint={'x':1,'y':.3})
-        but=Button(text='send',size_hint=(.2,.1),pos_hint={'x':.8,'y':.0})
+        l2=Label(text='name ',size_hint=(.2,.1),pos_hint={'x':1,'y':.3},background_color= (0,0.5,1,1))
+        but=Button(text='send',size_hint=(.2,.1),pos_hint={'x':.8,'y':.0},background_color= (1,0.5,1,1))
         self.add_widget(code)
         self.add_widget(l1)
         self.add_widget(a_m)
         self.add_widget(l2)
         self.add_widget(but)
         if but.state=='down':
-            self.manager.current='forex'
+            pass
 
     def account(self):
         #balance=self.ids.account.text
@@ -698,28 +761,31 @@ class Invest(Screen):
             pass 
     def forex(self):
         Inner.forex()
+
     def pinnacle(self):
         pin=Inner()
         pin.pinnacle()
         return pin
+    
     def airtel(self):
         pass
-    def buy(self,*args):
+
+    def buy(self):
         # varaible to hld the passcode for the user 
-        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2},background_color= (0,0.5,1,1))
         
-        l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18})
+        l1=Label(text='usercode ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
-        l2=Label(text='name ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
+        l2=Label(text='name ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28},background_color= (0,0.5,1,1))
         #variable to hold the currency
         ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
-        l3=Label(text='trust ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38})
+        l3=Label(text='trust ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38},background_color= (0,0.5,1,1))
         #variable to hold the sellers name 
-        user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
-        l4=Label(text='number',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48})
+        user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
+        l4=Label(text='+phone',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48},background_color= (0,0.5,1,1))
 
-        but=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.4,'y':.08})
+        but=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.4,'y':.08},background_color= (0,0.5,0,1))
 
         
         self.add_widget(code)
@@ -734,14 +800,14 @@ class Invest(Screen):
         
 
     def trade(self):
-        self.manager.current='skillo'
+        pass
     def prev(self):
 
         self.index +=1
         self.index %=len(images)
         self.image=images[self.index]
     def deliver(self):
-        label=Label(text='i watch',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
+        label=Label(text='micronet',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2},background_color= (0,0.5,1,1))
         self.add_widget(label)
         for pieces in range(10):    
             if pieces>=5:
@@ -757,29 +823,31 @@ class Invest(Screen):
     # function to add things in the db
     def update(self):
         
-        self.manager.current='ads'
+        pass
     
 
     def cart(self):
-        label=Label(text='items',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
+        label=Label(text='items',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2},background_color= (0,0.5,1,1))
         self.add_widget(label)
-    
+    def cafepay(self,value):
+        label=Label(text='paying['+str(value)+']ugx',size_hint=(.3,.2),pos_hint={'x':.6,'top':.1},background_color= (0,0.5,1,1))
+        self.add_widget(label)
     def cafe(self):
-        l1=Label(text='ammount',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l1=Label(text='money',size_hint=(.2,.05),pos_hint={'x':.4,'top':.4},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
-        a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
-        a_m=Button(text="complete",size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        a_in=TextInput(size_hint=(.2,.05),pos_hint={'x':.4,'top':.3},on_text_validate=self.cafepay)
+        a_m=Button(text="complete",size_hint=(.2,.05),pos_hint={'x':.4,'top':.2},background_color= (0,0.5,1,1))
         self.add_widget(l1)
         self.add_widget(a_m)
-        if a_m.on_press==True:
-            self.remove_widget(l1)
-            self.remove_widget(a_m)
+        self.add_widget(a_in)
+        
         return 
 
     def chat(self):
         
-        Client.connect()
+        #Client.connect()
         var='connecting..'
+        self.add_widget(Label(text=var,size_hint=(.2,.08),pos_hint=(.2,.1),background_color= (0,0.5,1,1)))
 
         return 
     def rec_(self):
@@ -790,9 +858,9 @@ class Invest(Screen):
             y=y+10
             with self.canvas:
                 Color(.1,1,.2,1)
-                Rectangle(source='',pos=(x,y),size=(100,100))
+                Rectangle(source='icon.png',pos=(x,y),size=(100,100),background_color= (0,0.5,0,1))
     def view_shops(self):
-        but=Button(text="view shops", on_press=self.rec_, pos=(100,100),size=(100,100))
+        but=Button(text="shopview", on_press=self.rec_, pos=(100,100),size=(100,100),background_color= (0,0.5,1,1))
         self.add_widget(but)
         image=Image(source='icon.png',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
         self.add_widget(image)
@@ -814,13 +882,18 @@ class Forex(Screen):
    
     
     def loop(self):
-        for i in range(100000):
+        for i in range(10):
             loop=i+1
 
             #variable to control the screen
-            self.manager.current=''
+    def forec(self):
+        import market 
+        mark=True
+        if mark:
             
-    
+            for i in market.country_market:
+
+                self.add_widget(Label(text=i,size_hint=(.3,.4),pos_hint={'x':0,'y':.1},background_color=(.2,.2,.3,1)))
     def is_broker(self):
         #varaible to hold goods sold aday
         d_sales=0
@@ -829,7 +902,8 @@ class Forex(Screen):
         else:
             return False
 
-           
+    def wallet(self):
+        self.add_widget(Button(text='100usd',size_hint=(.2,.05),pos_hint={'x':.7,'y':1},background_color=(.2,.2,.3,1)))
     
         
     def wholesale(self):
@@ -865,40 +939,48 @@ class Forex(Screen):
             #a=Mtn()
             #a.mtnpay()
             #Mtn.mtntrans()
-            finish=Button(text="paid with airtel...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+            finish=Button(text="mtn pay ",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2},background_color= (0,1,1,1))
             self.add_widget(finish)
             pass 
     def airtel(self):
-        finish=Button(text="paid with airtel...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        finish=Button(text="airtel pay",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2},background_color= (1,0.5,1,1))
         self.add_widget(finish)
     def buy(self):
         # varaible to hld the passcode for the user 
-        code=TextInput(text="shopcode ...",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2})
+        code=Label(text="shop",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2},background_color= (0,0.5,1,1))
+        codet=TextInput(size_hint=(.2,.1),pos_hint={'x':.4,'y':.2})
         #variable to hold the ammount of money to be bought on 
-        a_m=TextInput(text="name...",size_hint=(.2,.1),pos_hint={'x':.3,'y':.2})
+        name=Label(text="name",size_hint=(.2,.1),pos_hint={'x':.1,'y':.3},background_color= (0,0.5,1,1))
+        namet=TextInput(size_hint=(.2,.1),pos_hint={'x':.4,'y':.3})
         #variable to hold the currency
-        ugx=TextInput(text="money ...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        money=Label(text="money",size_hint=(.2,.1),pos_hint={'x':.1,'y':.4},background_color= (0,0.5,1,1))
+        moneyt=TextInput(size_hint=(.2,.1),pos_hint={'x':.4,'y':.4})
         #variable to hold the buyers name 
-        user_id=TextInput( text="user_id", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2})
-        finish=Button(text="finish...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        userid=Label(text="userid",size_hint=(.2,.1),pos_hint={'x':.1,'y':.5},background_color= (0,0.5,1,1))
+        useridt=TextInput(size_hint=(.2,.1),pos_hint={'x':.4,'y':.2})
+        finish=Button(text="finish...",size_hint=(.2,.1),pos_hint={'x':.3,'y':.5},background_color= (0,0.5,1,1))
         self.add_widget(finish)
+        self.add_widget(codet)
+        self.add_widget(namet)
+        self.add_widget(moneyt)
+        self.add_widget(useridt)
         self.add_widget(code)
-        self.add_widget(a_m)
-        self.add_widget(ugx)
-        self.add_widget(user_id)
+        self.add_widget(name)
+        self.add_widget(money)
+        self.add_widget(userid)
 
 
     def tools(self):
-        cod=Label(text="premium [(4) ->paid only]",size_hint=(.2,.1),pos_hint={'x':.5,'y':1})
+        cod=Label(text="premium services",size_hint=(.2,.1),pos_hint={'x':.5,'y':1},background_color= (0,0.5,1,1))
         # varaible to hld the passcode for the user 
-        code=Button(text="graphs",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2})
+        code=Button(text="graphs",size_hint=(.2,.1),pos_hint={'x':.1,'y':.2},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be bought on 
-        a_m=Button(text="lines",size_hint=(.2,.1),pos_hint={'x':.3,'y':.2})
+        a_m=Button(text="lines",size_hint=(.2,.1),pos_hint={'x':.3,'y':.2},background_color= (0,0.5,1,1))
         #variable to hold the currency
-        ugx=Button(text="indexers",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        ugx=Button(text="indexers",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2},background_color= (0,0.5,1,1))
         #variable to hold the buyers name 
-        user_id=Button( text="Ai", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2})
-        finish=Button(text="finish...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2})
+        user_id=Button( text="Ai", size_hint=(.2,.1),pos_hint={'x':.7,'y':.2},background_color= (0,0.5,1,1))
+        finish=Button(text="finish...",size_hint=(.2,.1),pos_hint={'x':.5,'y':.2},background_color= (0,0.5,1,1))
         self.add_widget(finish)
         self.add_widget(code)
         self.add_widget(cod)
@@ -913,7 +995,7 @@ class Forex(Screen):
         self.index %=len(images)
         self.image=images[self.index]
     def deliver(self):
-        label=Label(text='i watch',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
+        label=Label(text='micronet',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
         self.add_widget(label)
         for pieces in range(10):    
             if pieces>=5:
@@ -927,13 +1009,13 @@ class Forex(Screen):
 
 
     # function to add things in the db
-    def upate(self):
+    def update(self):
         self.items.append(self.image)
         return "db updated..."
     
 
     def cart(self):
-        label=Label(text='i watch',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
+        label=Label(text='cedar tecs',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2},background_color= (0,0.5,1,1))
         self.add_widget(label)
         return "cart..."
     
@@ -944,34 +1026,30 @@ class Forex(Screen):
     def exc(self):
         pass
     def rates(self):
-        label=Label(text='0.05%',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2})
+        label=Label(text='0.05%',size_hint=(.2,.2),pos_hint={'x':.1,'top':.2},background_color= (0,0.5,1,1))
         self.add_widget(label)
     def futures(self):
         l1=Label(text='currency',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2})
         code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
         
-        l1=Label(text='ammount',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l1=Label(text='ammount',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
 
-        l2=Label(text='username ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l2=Label(text='username ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4},background_color= (0,0.5,1,1))
         #variable to hold the currency
         ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
 
-        l3=Label(text='phone ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l3=Label(text='phone ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
         #variable to hold the sellers name 
         user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
 
-        l4=Label(text='pin',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
+        l4=Label(text='pin',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
         pin=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
         
-        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.5,'y':.6} )
-        clear=Button(text='clear',size_hint=(.2,.05),pos_hint={'x':.5,'y':.6} )
-        b.bold=True
-        b.border=16,16,16,16
-        b.background_color=0,1,1,1
-        b.background_down=''
-        b.background_down=''
+        
+        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.5,'y':.6} ,background_color= (1,0,0,1))
+        clear=Button(text='clear',size_hint=(.2,.05),pos_hint={'x':.5,'y':.6} ,background_color= (1,0,0,1))
         
         self.add_widget(code)
         self.add_widget(l1)
@@ -984,25 +1062,15 @@ class Forex(Screen):
         self.add_widget(pin)
         self.add_widget(b)
 
-        time.sleep(60)
-        self.remove_widget(code)
-        self.remove_widget(l1)
-        self.remove_widget(l2)
-        self.remove_widget(l3)
-        self.remove_widget(l4)
-        self.remove_widget(a_m)
-        self.remove_widget(ugx)
-        self.remove_widget(user_id)
-        self.remove_widget(pin)
-        self.remove_widget(b)
-
+        
 
 
 
     def chat(self):
         
-        Client.connect()
-        var='sending ...sms..'
+        #Client.connect()
+        label=Label(text='sms..',size_hint=(.2,.08),pos_hint={'x':.2,'top':.2},background_color= (0,0.5,1,1))
+        self.add_widget(label)
 
         return 
     def rec_(self):
@@ -1013,9 +1081,9 @@ class Forex(Screen):
             y=y+10
             with self.canvas:
                 Color(.1,1,.2,1)
-                Rectangle(source='',pos=(x,y),size=(100,100))
+                Rectangle(source='icon.png',pos=(x,y),size=(100,100),background_color= (0,0.5,1,1))
     def view_shops(self):
-        but=Button(text="view shops", on_press=self.rec_, pos=(100,100),size=(100,100))
+        but=Button(text="view shops", on_press=self.rec_, pos=(100,100),size=(100,100),background_color= (0,0.5,1,1))
         self.add_widget(but)
 
 class Settings():
@@ -1035,14 +1103,30 @@ class Login(Screen):
     password=ObjectProperty()
     
     def register(self):
-        self.username=self.ids.username.text
-        self.password=self.ids.password.text
+        
+
+        if self.ids.username.on_text==True and self.ids.password.on_text==True:
+            username=self.ids.username.text
+            password=self.ids.password.text
+            if username=='' and password=='':
+                label=Label(text='values missing!!',size_hint=(.2,.08),pos_hint={'x':.2,'top':.2},background_color= (1,0,0,1))
+                self.add_widget(label)
+            elif username!=None and password!=None:
+                label=Label(text='validating!!',size_hint=(.2,.08),pos_hint={'x':.2,'top':.2},background_color= (1,0.5,1,1))
+                self.add_widget(label)
+            else:
+                label=Label(text='user registerd',size_hint=(.2,.08),pos_hint={'x':.2,'top':.2},background_color= (0,0.5,1,1))
+                self.add_widget(label)
+                self.log()
+
+
+
+
          
     def log(self):
-        l=Label(text='logined in ',size_hint=(.2,.8),pos_hint={'x':5,'top':.2})
+        l=Label(text='logined in ',size_hint=(.2,.8),pos_hint={'x':5,'top':.2},background_color= (0,0.5,1,1))
         self.add_widget(l)
-        time.sleep(10)
-        self.manager.current='ishops'
+        
             
 
         
@@ -1076,19 +1160,30 @@ class to handle the credit section
 class Credit(Screen):
     def credit(self):
         # varaible to hld the passcode for the user 
-        code=TextInput(text="code ...",size_hint=(.2,.05),pos_hint={'x':.3,'y':.2})
+        label=Label(text='usercode',size_hint=(.2,.05),pos_hint={'x':.3,'y':.2},background_color= (0,0.5,1,1))
+        code=TextInput(size_hint=(.2,.05),pos_hint={'x':.1,'y':.2})
         #variable to hold the ammount of money to be saved 
-        a_m=TextInput(text="code ...",size_hint=(.2,.05),pos_hint={'x':.3,'y':.3})
+        label1=Label(text='passcode',size_hint=(.2,.05),pos_hint={'x':.3,'y':.3},background_color= (0,0.5,1,1))
+        a_m=TextInput(size_hint=(.2,.05),pos_hint={'x':.1,'y':.3})
         #variable to hold the currency
-        ugx=TextInput(text="money ...",size_hint=(.2,.05),pos_hint={'x':.3,'y':.4})
+        label2=Label(text='money',size_hint=(.2,.05),pos_hint={'x':.3,'y':.4},background_color= (0,0.5,1,1))
+        ugx=TextInput(size_hint=(.2,.05),pos_hint={'x':.1,'y':.4})
         #variable to hold the savers name 
-        user_id=TextInput( text="user_id", size_hint=(.2,.05),pos_hint={'x':.3,'y':.5})
-        btn=Button(text="credit",pos_hint={'x':.3,'top':.1},size_hint=(.2,.2),color=[0,1,0,1])
+        label3=Label(text='usercode',size_hint=(.2,.05),pos_hint={'x':.3,'y':.5},background_color= (0,0.5,1,1))
+
+        user_id=TextInput( size_hint=(.2,.05),pos_hint={'x':.1,'y':.5})
+        btn=Button(text="loan",pos_hint={'x':.3,'top':.1},size_hint=(.2,.2),color=(0,1,0,1),background_color= (0,0.5,1,1))
         self.add_widget(code)
         self.add_widget(a_m)
         self.add_widget(ugx)
         self.add_widget(user_id)
         self.add_widget(btn)
+        self.add_widget(label)
+        self.add_widget(label1)
+        self.add_widget(label2)
+        self.add_widget(label3)
+        
+        
     # the function to carry out crediting the user 
     def credited(self):
         with open('credit.txt' ,'w') as file:
@@ -1097,23 +1192,41 @@ class Credit(Screen):
     # where cr stands for credit 
     def cr_track(self):
         pass
+    def clear(self):
+        self.clear_widgets()
     def insurance(self):
-        code=TextInput(text="policy ...",size_hint=(.2,.05),pos_hint={'x':.3,'y':.2})
+        search=Label(text='policy',size_hint=(.2,.1),pos_hint={'x':.4,'top':.25},background_color=(0,0,1,1))
+        code=TextInput(size_hint=(.2,.05),pos_hint={'x':.3,'y':.2})
         #variable to hold the ammount of money to be saved 
-        a_m=TextInput(text="premium ...",size_hint=(.2,.05),pos_hint={'x':.3,'y':.3})
+        search1=Label(text='premium',size_hint=(.2,.1),pos_hint={'x':.4,'top':.4},background_color=(0,0,1,1))
+        a_m=TextInput(size_hint=(.2,.05),pos_hint={'x':.3,'y':.3})
         #variable to hold the currency
-        ugx=TextInput(text="target ...",size_hint=(.2,.05),pos_hint={'x':.3,'y':.4})
+        
+        ugx=TextInput(size_hint=(.2,.05),pos_hint={'x':.3,'y':.4})
         #variable to hold the savers name 
-        user_id=TextInput( text="username", size_hint=(.2,.05),pos_hint={'x':.3,'y':.5})
-        btn=Button(text="length",pos_hint={'x':.3,'top':.1},size_hint=(.2,.2),color=[0,1,0,1])
+        search3=Label(text='usename',size_hint=(.2,.1),pos_hint={'x':.4,'top':.5},background_color=(0,0,1,1))
+        user_id=TextInput(size_hint=(.2,.05),pos_hint={'x':.3,'y':.5},color=(0,1,0,1))
+        search2=Label(text='money',size_hint=(.2,.1),pos_hint={'x':.3,'top':.6},background_color=(0,0,1,1))
+        btn=Button(text="insure",pos_hint={'x':.3,'top':.1},size_hint=(.2,.08),color=(0,1,0,1),background_color=(0,0,1,1))
         self.add_widget(code)
         self.add_widget(a_m)
         self.add_widget(ugx)
         self.add_widget(user_id)
         self.add_widget(btn)
-
+        self.add_widget(search)
+        self.add_widget(search1)
+        self.add_widget(search2)
+        self.add_widget(search3)
+        btn_c=Button(text="clear",pos_hint={'x':.6,'top':.1},size_hint=(.2,.08),color=(0,1,0,1),background_color=(0,0,1,1),on_press=self.clear)
+        self.add_widget(btn_c)
     def loan(self):
-        pass
+        maturity=30
+        issue_d=0
+        tim=time.asctime()
+        #this record the time the loan is taken  and uses current time to calculate the time taken with loan 
+        #if time is greater than 30 days then the fine is inserted 
+        
+        return 
     
     def eligable(self):
         pass
@@ -1125,30 +1238,38 @@ class Credit(Screen):
 """
 class to handle the savings account
 
+--mobilizing savings 
+--goods and services 
+--transportation
+--education 
+--devolepment
+--equity financing 
+--joint savings 
+--tecnology advancements
+--transformation
+
 """
 
 
 class Savings(Screen):
     def save(self):
-        code=TextInput(text="code ...",size_hint=(.2,.05),pos_hint={'x':.2,'y':.2})
-        money=TextInput(text="money ...",size_hint=(.2,.05),pos_hint={'x':.2,'y':.3})
-        receiver=TextInput( text="reciever_id", size_hint=(.2,.05),pos_hint={'x':.2,'y':.4})
-        btn=Button(text="Save ",pos_hint={'x':.2,'top':.1},size_hint=(.2,.05),color=[0,1,0,1])
-        #receiver.border(16,16,16,16)
-        #money.border(16,16,16,16)
-        #btn.border(16,16,16,16)
-        #code.border(16,16,16,16)
-        btn.bold=True
-        btn.font_size=20
+        label=Label(text='usecode',size_hint=(.2,.1),pos_hint={'x':.4,'top':.2},background_color= (0,0.5,1,1))
+        code=TextInput(size_hint=(.2,.05),pos_hint={'x':.2,'y':.2})
+        label1=Label(text="money",size_hint=(.2,.1),pos_hint={'x':.4,'top':.3},background_color= (0,0.5,1,1))
+        money=TextInput(size_hint=(.2,.05),pos_hint={'x':.2,'y':.3})
+        label2=Label(text='userid',size_hint=(.2,.1),pos_hint={'x':.4,'top':.4},background_color= (0,0.5,1,1))
+        receiver=TextInput( size_hint=(.2,.05),pos_hint={'x':.2,'y':.4})
+        btn=Button(text="Save ",pos_hint={'x':.2,'top':.1},size_hint=(.2,.05),color=[0,1,0,1],background_color= (0,0.5,1,1))
+        
         self.add_widget(code)
         self.add_widget(btn)
         self.add_widget(money)
         self.add_widget(receiver)
+        self.add_widget(label)
+        self.add_widget(label1)
+        self.add_widget(label2)
         if btn.state=='down':
-            self.remove_widget(code)
-            self.remove_widget(btn)
-            self.remove_widget(money)
-            self.remove_widget(receiver)
+            pass
         
     # the function to carry out crediting the user 
     def saved(self):
@@ -1160,6 +1281,14 @@ class Savings(Screen):
 
 """
 class for handling the media files 
+--news 
+--entertainment
+--talks
+--hangouts 
+--share
+--comment section
+--youth devolelpment
+--science and tecnology talks
 
 """
 class Media(Screen):
@@ -1169,7 +1298,7 @@ class Media(Screen):
     days=0
     green=True 
     def music(self):
-        music=Button(text='xmusic',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7} )
+        music=Button(text='Djmusic',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7} ,background_color= (0,0.5,1,1))
         self.add_widget(music)
         if music.on_press==True:
             self.remove_widget(music)
@@ -1177,13 +1306,13 @@ class Media(Screen):
         #changing  the font size of the words and alignment 
         
         
-        next1=Button(text="cede TV",size_hint=(.2,.05),pos_hint={'x':.5,'y':.8} )
+        next1=Button(text="micronetTV",size_hint=(.2,.05),pos_hint={'x':.5,'y':.8} ,background_color= (0,0.5,1,1))
         self.add_widget(next1)
 
-        video=Video(state='play',source='',size_hint=(.6,.4),pos_hint={'x':.4,'y':.2})
+        video=Video(state='play',source='x.mp4',size_hint=(.6,.4),pos_hint={'x':.4,'y':.2},background_color= (0,0.5,1,1))
         self.add_widget(video)
-        next=Button(text="news",size_hint=(.2,.05),pos_hint={'x':.9,'y':.1} )
-        self.add_widget(next)
+        nex=Button(text="news",size_hint=(.2,.05),pos_hint={'x':.9,'y':.1} ,background_color= (0,0.5,1,1))
+        self.add_widget(nex)
             #self.remove_widget(next1)
             
 
@@ -1193,8 +1322,8 @@ class Media(Screen):
     def news(self):
         # the news anchors platform for the new delivery
 
-        l=Label(text="News daily live",size_hint=(.4,.1),pos_hint={'x':.0,'y':.2})
-        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7} )
+        l=Label(text="News live",size_hint=(.4,.1),pos_hint={'x':.0,'y':.2},background_color= (0,0.5,1,1))
+        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7},background_color= (0,0.5,1,1) )
         self.add_widget(l)
         self.add_widget(next1)
         #if next1.on_press==True:
@@ -1206,40 +1335,32 @@ class Media(Screen):
 
     """
     def presenter(self):
-        l1=Label(text='salary:',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2})
-        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        l1=Label(text='salary:',size_hint=(.3,.05),pos_hint={'x':.0,'y':.1},background_color= (0,0.5,1,1))
+        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.7,'y':.2})
         
-        l1=Label(text='ammount:',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l1=Label(text='ammount:',size_hint=(.3,.05),pos_hint={'x':.4,'y':.2},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.7,'y':.3})
 
-        l2=Label(text='username: ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l2=Label(text='username: ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3},background_color= (0,0.5,1,1))
         #variable to hold the currency
         ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.7,'y':.4})
 
-        l3=Label(text='phone: ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l3=Label(text='phone: ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4},background_color= (0,0.5,1,1))
         #variable to hold the sellers name 
         user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.7,'y':.5})
 
-        l4=Label(text='pin:',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
+        l4=Label(text='pin:',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
         pin=TextInput(size_hint=(.3,.05),pos_hint={'x':.7,'y':.5})
         
-        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
+        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.6,'y':.6} ,background_color=(1,0,0,1))
         b.bold=True
-        #b.border=16,16,16,16
+        
         b.background_color=0,1,1,1
         b.background_down=''
         b.background_down=''
 
-        """
-        l1.border(16,16,16,16)
-        l2.border(16,16,16,16)
-        l3.border(16,16,16,16)
-        l4.border(16,16,16,16)
-        b.border(16,16,16,16)
-        a_m.border(16,16,16,16)
-
-        """
+        
         self.add_widget(code)
         self.add_widget(l1)
         self.add_widget(l2)
@@ -1260,41 +1381,31 @@ class Media(Screen):
     
     """
     def show(self):
-        l1=Label(text='name: Timo',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2})
-        code=Label(text="age: 20",size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        l1=Label(text='name: Timo',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2},background_color= (0,0.5,1,1))
+        code=Label(text="age: 20",size_hint=(.3,.05),pos_hint={'x':.4,'y':.2},background_color= (0,0.5,1,1))
         
-        l1=Label(text='country:ug',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l1=Label(text='country:ug',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
-        a_m=Label(text="profs: media fx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.3})
+        a_m=Label(text="profs: media fx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.3},background_color= (0,0.5,1,1))
 
-        l2=Label(text='salary: 900000ugx',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l2=Label(text='salary: 900000ugx',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4},background_color= (0,0.5,1,1))
         #variable to hold the currency
-        ugx=Label(text="date:......",size_hint=(.3,.05),pos_hint={'x':.7,'y':.4})
+        ugx=Label(text="date:......",size_hint=(.3,.05),pos_hint={'x':.7,'y':.4},background_color= (0,0.5,1,1))
 
-        l3=Label(text='phone:+256789498333 ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l3=Label(text='phone:+256754562905 ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
         #variable to hold the sellers name 
-        user_id=Label(text="show : youth dev",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5})
+        user_id=Label(text="show : youth dev",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5},background_color= (0,0.5,1,1))
 
-        l4=Label(text='hobby: movies',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
-        pin=Label(text="about: xxxx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5})
+        l4=Label(text='hobby: movies',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
+        pin=Label(text="about: cedes inc",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5},background_color= (0,0.5,1,1))
         
-        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.8,'y':.6} )
+        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.8,'y':.6} ,background_color= (1,0,0,1))
         b.bold=True
         b.border=16,16,16,16
         b.background_color=0,1,1,1
         b.background_down=''
         b.background_down=''
-        """
-        l1.border(16,16,16,16)
-        l2.border(16,16,16,16)
-        l3.border(16,16,16,16)
-        l4.border(16,16,16,16)
-        b.border(16,16,16,16)
-
         
-        a_m.border(16,16,16,16)
-
-        """
         self.add_widget(code)
         self.add_widget(l1)
         self.add_widget(l2)
@@ -1305,69 +1416,45 @@ class Media(Screen):
         self.add_widget(user_id)
         self.add_widget(pin)
         self.add_widget(b)
-        time.sleep(20)
+        
 
-        self.remove_widget(code)
-        self.remove_widget(l1)
-        self.remove_widget(l2)
-        self.remove_widget(l3)
-        self.remove_widget(l4)
-        self.remove_widget(a_m)
-        self.remove_widget(ugx)
-        self.remove_widget(user_id)
-        self.remove_widget(pin)
-        self.remove_widget(b)
-
-        if b.state=='down':
-            self.manager.current='cedes'
+        
     def entertain(self):
         #tools for writing and editing the music 
-        pin=Label(text="afro",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
-        p=Label(text="rnb ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
-        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
-        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
+        pin=Label(text="afro",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
+        p=Label(text="rnb ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
+        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7},background_color= (0,0.5,1,1) )
+        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7},background_color= (0,0.5,1,1) )
         self.add_widget(pin)
         self.add_widget(p)
         self.add_widget(b)
         
-        if exi.state=='down':
-            self.remove_widget(pin)
-            self.remove_widget(p)
-            self.remove_widget(b)
-            self.remove_widget(exi)
-
         
     def art_of_life(self):
-        # overview of the general life 
-        next1=Button(text='fabs',size_hint=(.2,.05),pos_hint={'x':.6,'y':.4} )
+        #overview of the general life 
+        next1=Button(text='fabs',size_hint=(.2,.05),pos_hint={'x':.6,'y':.4} ,background_color= (0,0.5,1,1))
         self.add_widget(next1)
-        nex=Button(text='fansay',size_hint=(.2,.05),pos_hint={'x':.6,'y':.2} )
+        nex=Button(text='race',size_hint=(.2,.05),pos_hint={'x':.6,'y':.2},background_color= (0,0.5,1,1) )
         self.add_widget(nex)
-
+        time=Button(text='Time:{}'.format(time.asctime()),size_hint=(.2,.05),pos_hint={'x':.2,'y':.1} )
+        self.add_widget(time)
         pass
     def movies(self):
         #adding clips to form back the movies like they were 
-        pin=Label(text="adventure",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
-        p=Label(text="horor ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
-        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
-        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7} )
-        prev=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.7,'y':.7} )
-        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
+        pin=Label(text="adventure",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
+        p=Label(text="horor ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
+        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} ,background_color= (0,0.5,1,1))
+        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7} ,background_color= (0,0.5,1,1))
+        prev=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.7,'y':.7} ,background_color= (0,0.5,1,1))
+        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} ,background_color= (0,0.5,1,1))
         self.add_widget(pin)
         self.add_widget(p)
         self.add_widget(next1)
         self.add_widget(prev)
         self.add_widget(b)
+        Inner().pop()
 
-        if exi.state=='down':
-            self.remove_widget(pin)
-            self.remove_widget(p)
-            self.remove_widget(b)
-            self.remove_widget(next1)
-            self.remove_widget(prev)
-            self.remove_widget(exi)
-        
-    def best_ranking():
+    def best_ranking(): 
         # employing quick alorithms tobe able to extract insight from the bigdata models ie recurent and reinforcement ann
         pass
     def exi(self):
@@ -1389,25 +1476,27 @@ class Account(Screen):
     def holder(self):
         
         
-        code=Label(text='20,000ugx',size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        code=Label(text='20,000ugx',size_hint=(.3,.05),pos_hint={'x':.4,'y':.2},background_color=(.5,0.5,1,1))
         
         
         l1=Label(text='october',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18})
         self.add_widget(l1)
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
-
-        l2=Label(text='profile',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28})
-        #variable to hold the currency
-        ugx=Label(text="credit",size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
-        l3=Label(text='  location',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38})
-        #variable to hold the sellers name 
-        user_id=Label(text="district",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
-        l4=Label(text='phone',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48})
-
-        but=Button(text='finish',size_hint=(.1,.05),pos_hint={'x':.4,'y':.08})
-        b=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.5,'y':.08} )
         
+
+        l2=Label(text='profile',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28},background_color= (.5,0.5,1,1))
+        #variable to hold the currency
+        ugx=Label(text="credit",size_hint=(.3,.05),pos_hint={'x':.4,'y':.4},background_color= (.5,0.5,1,1))
+        l3=Label(text='  location',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38},background_color= (.5,0.5,1,1))
+        #variable to hold the sellers name 
+        user_id=Label(text="district",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (.5,0.5,1,1))
+        l4=Label(text='phone',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48},background_color= (.5,0.5,1,1))
+
+        but=Button(text='finish',size_hint=(.1,.05),pos_hint={'x':.4,'top':.08},background_color= (.5,0.5,1,1))
+        b=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.5,'top':.08} ,background_color= (.5,0.5,1,1))
+        time=Button(text='Time:',size_hint=(.2,.05),pos_hint={'x':.2,'top':.08},background_color= (.5,0.5,1,1) )
+        self.add_widget(time)
         self.add_widget(code)
         self.add_widget(l2)
         self.add_widget(l3)
@@ -1417,27 +1506,16 @@ class Account(Screen):
         self.add_widget(user_id)
         self.add_widget(but)
         self.add_widget(b)
-        if b.state=='down':
-            self.remove_widget(code)
-            self.remove_widget(l1)
-            self.remove_widget(l2)
-            self.remove_widget(l3)
-            self.remove_widget(l4)
-            self.remove_widget(a_m)
-            self.remove_widget(ugx)
-            self.remove_widget(user_id)
-            self.remove_widget(but)
-            self.remove_widget(b)
-
+        
 
 
 
     """
-    function to sleep for agiven duration
+    waiting ...
     
     """
-    def wait(self,duration):
-        time.sleep(duration)
+    def wait(self):
+        self.add_widget(Label(text='waiting..',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48},background_color= (0,0.5,1,1)))
         return 
 
 
@@ -1447,7 +1525,7 @@ class Account(Screen):
         """
     def records(self):
         
-        l4=Label(text='record',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
+        l4=Label(text='record',size_hint=(1,.1),pos_hint={'x':.8,'y':.48},background_color= (0,0.5,1,1))
         self.add_widget(l4)
     """
     function to analyse the user status
@@ -1456,10 +1534,12 @@ class Account(Screen):
             
     def status(self):
         
-        l4=Label(text='success',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
+        l4=Label(text='success',size_hint=(1,.1),pos_hint={'x':.8,'y':.48},background_color= (.5,0.5,1,1))
         self.add_widget(l4)
-        self.wait(4)
-        self.remove_widget(l4)
+        time=Button(text='Time:{}'.format(time.asctime()),size_hint=(.2,.05),pos_hint={'x':.2,'y':.1},background_color= (.5,0.5,1,1) )
+        self.add_widget(time)
+    
+    
     
 
 
@@ -1474,45 +1554,98 @@ double chances
 class Games(Screen):
     
     def slider(self):
-         value=self.ids.slider.value
-         return value
- 
+        return
+    # this functions handles the english premier league 
+    def epl(self):
+        pass
+    # this function handles all football leagues 
+    def fb(self):
+        x=True
+        #x is true if allowed/subscribed and defualts to True for the first 20 days
+        if x:
+            import bet
+            # the place for loading football games 
+            bet.games
+            bet.ball
+            bet.epl
+            bet.bundesliga
+            bet.serie_a
+            bet.laliga
+        else:
+            print("bet not import !!!")
 
 class Tec(Screen):
+    def exi(self):
+        sys.exit()
     
     def capture(self):
-        l4=Label(text='capture',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
+        pass
+        """
+        l4=Label(text='shoot',size_hint=(1,.1),pos_hint={'x':.8,'top':.48})
         self.add_widget(l4)
+        # code for writing the mage from either the camera or file and further editing
+        cap=cv2.VideoCapture('x.mp4')
+        fps=int(cap.get(cv2.CAP_PROP_FPS))
+        width=int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height=int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+        x=cap.isOpened()
+        
+        p,v=cap.read()
+    
+        c=cv2.imwrite('elijah.jpg',v)
+
+
+
+        a=1
+        T=True
+        while T:
+            cv2.imshow('elijah',v)
+            a+=1
+            if a>20:
+                T=False
+        #cv2.addText(v,'elijah',(20,300),'')
+        cv2.waitKey(20)
+        """
 
     
     def auto(self):
-        l4=Label(text='mobile',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
-        l3=Label(text='markets',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
-        l2=Label(text='funlab',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
-        l1=Label(text='social',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
+        l4=Label(text='volkswag',size_hint=(.2,.1),pos_hint={'x':.2,'top':.48},background_color= (.2,0.5,1,1))
+        l3=Label(text='mercedes',size_hint=(.2,.1),pos_hint={'x':.2,'top':.58},background_color= (.5,0.2,1,1))
+        l2=Label(text='Bmw',size_hint=(.2,.1),pos_hint={'x':.2,'top':.68},background_color= (.5,0.5,0,1))
+        l1=Label(text='porsche',size_hint=(.2,.1),pos_hint={'x':.2,'top':.78},background_color= (.5,0.5,1,1))
+        but=Button(text='end',size_hint=(.2,.1),pos_hint={'x':.2,'top':.38},background_color= (.5,0.5,1,1))
         self.add_widget(l4)
         self.add_widget(l3)
         self.add_widget(l2)
         self.add_widget(l1)
+        self.add_widget(but)
     def apps(self):
-        l4=Label(text='mobile',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
-        l3=Label(text='markets',size_hint=(1,.1),pos_hint={'x':.8,'y':.58})
-        l2=Label(text='funlab',size_hint=(1,.1),pos_hint={'x':.8,'y':.68})
-        l1=Label(text='social',size_hint=(1,.1),pos_hint={'x':.8,'y':.78})
+        l4=Label(text='web3',size_hint=(.2,.1),pos_hint={'x':.2,'top':.48},background_color= (.5,0.5,1,1))
+        l3=Label(text='android',size_hint=(.2,.1),pos_hint={'x':.2,'top':.58},background_color=(.2,0,1,1))
+        l2=Label(text='ios',size_hint=(.2,.1),pos_hint={'x':.2,'top':.68},background_color= (0,.4,1,1))
+        l1=Label(text='window',size_hint=(.2,.1),pos_hint={'x':.2,'top':.78},background_color= (0.7,0,1,1))
+        but=Button(text='end',size_hint=(.2,.1),pos_hint={'x':.2,'top':.38})
+        other=Button(text='other',size_hint=(.2,.05),pos_hint={'x':.2,'y':.1},background_color= (0,.1,1,1) )
+        # calling the auto function for cars 
+        other.on_touch_up(self.auto)
+        self.add_widget(time)
         self.add_widget(l4)
         self.add_widget(l3)
         self.add_widget(l2)
         self.add_widget(l1)
+        self.add_widget(but)
    
     def prog(self):
-        l4=Button(text='java',size_hint=(1,.1),pos_hint={'x':.8,'y':.28})
-        l3=Button(text='cpp',size_hint=(1,.1),pos_hint={'x':.8,'y':.38})
-        l2=Button(text='python',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
-        l1=Button(text='kotlin',size_hint=(1,.1),pos_hint={'x':.8,'y':.58})
-        l0=Button(text='swift',size_hint=(1,.1),pos_hint={'x':.8,'y':.68})
-        l=Button(text='kotlin',size_hint=(1,.1),pos_hint={'x':.8,'y':.78})
-        l6=Button(text='Remove',size_hint=(1,.1),pos_hint={'x':.8,'y':.78})
-        
+        l4=Button(text='java',size_hint=(.2,.1),pos_hint={'x':.2,'top':.28},background_color= (0,0,1,1))
+        l3=Button(text='cpp',size_hint=(.2,.1),pos_hint={'x':.2,'top':.38},background_color= (0,0,1,1))
+        l2=Button(text='python',size_hint=(.2,.1),pos_hint={'x':.2,'top':.48},background_color= (0,.5,1,1))
+        l1=Button(text='kotlin',size_hint=(.2,.1),pos_hint={'x':.2,'top':.58},background_color= (.2,0,1,1))
+        l0=Button(text='swift',size_hint=(.2,.1),pos_hint={'x':.2,'top':.68},background_color= (.4,0,1,1))
+        l=Button(text='kotlin',size_hint=(.2,.1),pos_hint={'x':.2,'top':.78},background_color= (0,0,1,1))
+        l6=Button(text='exit',size_hint=(.2,.1),pos_hint={'x':.2,'top':.88},background_color= (.1,0,1,1))
+        time=Button(text='Time:',size_hint=(.2,.05),pos_hint={'x':.2,'y':.1},background_color= (0,.4,1,1) )
+        self.add_widget(time)
         self.add_widget(l4)
         self.add_widget(l3)
         self.add_widget(l2)
@@ -1520,38 +1653,38 @@ class Tec(Screen):
         self.add_widget(l0)
         self.add_widget(l)
         self.add_widget(l6)
-        if l6.state=='down':
-            self.remove_widget(l4)
-            self.remove_widget(l3)
-            self.remove_widget(l2)
-            self.remove_widget(l1)
-            self.remove_widget(l0)
-            self.remove_widget(l)
-            self.remove_widget(l6)
+        
     def sci(self):
-        l4=Label(text='food ',size_hint=(1,.1),pos_hint={'x':.8,'y':.28})
-        l3=Label(text='ai',size_hint=(1,.1),pos_hint={'x':.8,'y':.38})
-        l2=Label(text='edge',size_hint=(1,.1),pos_hint={'x':.8,'y':.48})
-        l1=Label(text='social',size_hint=(1,.1),pos_hint={'x':.8,'y':.58})
+        time=Button(text='Time:',size_hint=(.2,.05),pos_hint={'x':.2,'y':.1},background_color=(1,0,0,1))
+        self.add_widget(time)
+        l4=Button(text='food ',size_hint=(.2,.1),pos_hint={'x':.2,'top':.28},background_color= (0,0,1,1))
+        l3=Button(text='ai',size_hint=(.2,.1),pos_hint={'x':.2,'top':.38},background_color= (0,0,1,1))
+        l2=Button(text='edge',size_hint=(.2,.1),pos_hint={'x':.2,'top':.48},background_color= (0,0,1,1))
+        l1=Button(text='social',size_hint=(.2,.1),pos_hint={'x':.2,'top':.58},background_color= (0,0,1,1))
+        l6=Button(text='exit',size_hint=(.2,.1),pos_hint={'x':.2,'top':.18},background_color= (0,0,1,1))
         self.add_widget(l4)
         self.add_widget(l3)
         self.add_widget(l2)
         self.add_widget(l1)
+        self.add_widget(l6)
 
 
 class Skillo(Screen):
+
+    def talent_show(self):
+        self.add_widget(Label(text='accessible to premium users !!!',size_hint=(.4,.1),pos_hint={'x':.1,'top':.1},background_color= (0,0.5,1,1)))
     def editor(self):
         #changing  the font size of the words and alignment 
         
         
-        next1=Button(text="cede TV",size_hint=(.2,.05),pos_hint={'x':.6,'y':.5} )
+        next1=Button(text="talent TV",size_hint=(.2,.05),pos_hint={'x':.6,'y':.5} ,on_press=self.talent_show,background_color= (0,0.5,1,1))
         self.add_widget(next1)
-        next2=Button(text="hide",size_hint=(.2,.05),pos_hint={'x':.6,'y':.4} )
+        next2=Button(text="hide",size_hint=(.2,.05),pos_hint={'x':.6,'y':.4} ,background_color= (0,0.5,1,1))
         self.add_widget(next2)
+        time=Button(text='Time',size_hint=(.2,.05),pos_hint={'x':.2,'y':.1} ,background_color= (0,0.5,1,1))
+        self.add_widget(time)
         if next1.state=='down':
-
-            self.remove_widget(next2)
-            self.remove_widget(next1)
+            pass
             
 
 
@@ -1559,15 +1692,18 @@ class Skillo(Screen):
     def news(self):
         # the news anchors platform for the new delivery
 
-        l=Label(text="News daily live",size_hint=(.4,.1),pos_hint={'x':.2,'y':.7})
-        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.2,'y':.6} )
-        next2=Button(text='clear',size_hint=(.2,.05),pos_hint={'x':.2,'y':.5} )
+        l=Label(text="News live",size_hint=(.4,.1),pos_hint={'x':.2,'y':.7},background_color= (0,0.5,1,1))
+        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.2,'y':.6} ,background_color= (0,0.5,1,1))
+        next2=Button(text='end',size_hint=(.2,.05),pos_hint={'x':.2,'y':.5} ,background_color= (0,0.5,1,1))
+        premium=Button(text='premium ',size_hint=(.2,.05),pos_hint={'x':.8,'y':.1} ,background_color= (0,0.5,1,1))
+        time=Button(text='Time:',size_hint=(.2,.05),pos_hint={'x':.2,'y':.1} ,background_color= (0,0.5,1,1))
+        self.add_widget(time)
+        self.add_widget(premium)
+        
         self.add_widget(l)
         self.add_widget(next1)
         if next2.state=='down':
-            self.remove_widget(next1)
-            self.remove_widget(l)
-            self.remove_widget(next2)
+            pass
 
     """
     
@@ -1576,40 +1712,27 @@ class Skillo(Screen):
 
     """
     def presenter(self):
-        l1=Label(text='currency',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2})
+        l1=Label(text='currency',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2},background_color= (0,0.5,1,1))
         code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
         
-        l1=Label(text='ammount',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l1=Label(text='ammount',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
 
-        l2=Label(text='username ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l2=Label(text='username ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4},background_color= (0,0.5,1,1))
         #variable to hold the currency
         ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
 
-        l3=Label(text='phone ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l3=Label(text='phone ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
         #variable to hold the sellers name 
         user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
 
-        l4=Label(text='pin',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
+        l4=Label(text='pin',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
         pin=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
         
-        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.4,'y':.6} )
-        b.bold=True
-        b.border=16,16,16,16
-        b.background_color=0,1,1,1
-        b.background_down=''
-        b.background_down=''
+        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.4,'y':.6} ,background_color= (0,0.5,1,1))
+        
 
-        """
-        l1.border(16,16,16,16)
-        l2.border(16,16,16,16)
-        l3.border(16,16,16,16)
-        l4.border(16,16,16,16)
-        b.border(16,16,16,16)
-        a_m.border(16,16,16,16)
-
-        """
         self.add_widget(code)
         self.add_widget(l1)
         self.add_widget(l2)
@@ -1620,19 +1743,7 @@ class Skillo(Screen):
         self.add_widget(user_id)
         self.add_widget(pin)
         self.add_widget(b)
-        # the news anchors platform for the new delivery
-        if b.state=='down':
-            self.remove_widget(code)
-            self.remove_widget(l1)
-            self.remove_widget(l2)
-            self.remove_widget(l3)
-            self.remove_widget(l4)
-            self.remove_widget(a_m)
-            self.remove_widget(ugx)
-            self.remove_widget(user_id)
-            self.remove_widget(pin)
-            self.remove_widget(b)
-    
+        
         
         """
     function show
@@ -1640,41 +1751,26 @@ class Skillo(Screen):
     
     """
     def show(self):
-        l1=Label(text='name: Timo',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2})
+        l1=Label(text='name: Timo',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2},background_color= (0,0.5,1,1))
         code=Label(text="age: 20",size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
         
-        l1=Label(text='country:ug',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l1=Label(text='country:ug',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
-        a_m=Label(text="profs: media fx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.3})
+        a_m=Label(text="profs: media fx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.3},background_color= (0,0.5,1,1))
 
-        l2=Label(text='salary: 900000ugx',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l2=Label(text='salary: 900000ugx',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4},background_color= (0,0.5,1,1))
         #variable to hold the currency
-        ugx=Label(text="date:......",size_hint=(.3,.05),pos_hint={'x':.7,'y':.4})
+        ugx=Label(text="date:......",size_hint=(.3,.05),pos_hint={'x':.7,'y':.4},background_color= (0,0.5,1,1))
 
-        l3=Label(text='phone:+256789498333 ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l3=Label(text='phone:+256754562905',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
         #variable to hold the sellers name 
-        user_id=Label(text="show : youth dev",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5})
+        user_id=Label(text="show : youth dev",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5},background_color= (0,0.5,1,1))
 
-        l4=Label(text='hobby: movies',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
-        pin=Label(text="about: xxxx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.45})
+        l4=Label(text='hobby: movies',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
+        pin=Label(text="about: cedar ",size_hint=(.3,.05),pos_hint={'x':.7,'y':.45},background_color= (0,0.5,1,1))
         
-        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.8,'y':.6} )
-        b.bold=True
-        b.border=16,16,16,16
-        b.background_color=0,1,1,1
-        b.background_down=''
-        b.background_down=''
-        """
-        l1.border(16,16,16,16)
-        l2.border(16,16,16,16)
-        l3.border(16,16,16,16)
-        l4.border(16,16,16,16)
-        b.border(16,16,16,16)
-
+        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.8,'y':.6},background_color= (.4,0.5,1,1) )
         
-        a_m.border(16,16,16,16)
-
-        """
         self.add_widget(code)
         self.add_widget(l1)
         self.add_widget(l2)
@@ -1685,52 +1781,37 @@ class Skillo(Screen):
         self.add_widget(user_id)
         self.add_widget(pin)
         self.add_widget(b)
-        if b.state=='down':
-            self.remove_widget(code)
-            self.remove_widget(l1)
-            self.remove_widget(l2)
-            self.remove_widget(l3)
-            self.remove_widget(l4)
-            self.remove_widget(a_m)
-            self.remove_widget(ugx)
-            self.remove_widget(user_id)
-            self.remove_widget(pin)
-            self.remove_widget(b)
-
         
+    def mcm(self):
+        pass
     def entertain(self):
         #tools for writing and editing the music 
-        pin=Label(text="afro",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
-        p=Label(text="rnb ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
-        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
-        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
+        pin=Label(text="afro",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
+        p=Label(text="rnb ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
+        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7},on_press=self.talent_show,background_color= (0,0.5,1,1) )
+        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7},background_color= (.4,0.5,1,1) )
         self.add_widget(pin)
         self.add_widget(p)
         self.add_widget(b)
         
-        if exi.state=='down':
-            self.remove_widget(pin)
-            self.remove_widget(p)
-            self.remove_widget(b)
-            self.remove_widget(exi)
-
+        
         
     def art_of_life(self):
         # overview of the general life 
-        next1=Button(text='fabs',size_hint=(.2,.05),pos_hint={'x':.6,'y':.4} )
+        next1=Button(text='fabs',size_hint=(.2,.05),pos_hint={'x':.6,'y':.4} ,background_color= (0,0.5,1,1))
         self.add_widget(next1)
-        nex=Button(text='fansay',size_hint=(.2,.05),pos_hint={'x':.6,'y':.2} )
+        nex=Button(text='fansay',size_hint=(.2,.05),pos_hint={'x':.6,'y':.2} ,background_color= (0,0.5,1,1))
         self.add_widget(nex)
 
         pass
     def movies(self):
         #adding clips to form back the movies like they were 
-        pin=Button(text="adventure",size_hint=(.3,.05),pos_hint={'x':.7,'y':.7})
-        p=Button(text="horor ",size_hint=(.3,.05),pos_hint={'x':.7,'y':.6})
-        b=Button(text='scifi',size_hint=(.2,.05),pos_hint={'x':.7,'y':.5} )
-        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.7,'y':.4} )
-        prev=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.7,'y':.3} )
-        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.7,'y':.2} )
+        pin=Button(text="adventure",size_hint=(.3,.05),pos_hint={'x':.7,'y':.7},background_color= (0,0.5,1,1))
+        p=Button(text="horor ",size_hint=(.3,.05),pos_hint={'x':.7,'y':.6},background_color= (0,0.5,1,1))
+        b=Button(text='scifi',size_hint=(.2,.05),pos_hint={'x':.7,'y':.5} ,background_color= (0,0.5,1,1))
+        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.7,'y':.4} ,background_color= (0,0.5,1,1))
+        prev=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.7,'y':.3},on_press=self.talent_show ,background_color= (0,0.5,1,1))
+        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.7,'y':.2},background_color= (1,0.5,1,1) )
         self.add_widget(pin)
         self.add_widget(p)
         self.add_widget(next1)
@@ -1742,12 +1823,7 @@ class Skillo(Screen):
             self.add_widget(Label(text="horor ",size_hint=(.3,.05),pos_hint={'x':.2,'y':.6}))
             self.remove_widget(Label(text="horor ",size_hint=(.3,.05),pos_hint={'x':.2,'y':.6}))
         if exi.state=='down':
-            self.remove_widget(pin)
-            self.remove_widget(p)
-            self.remove_widget(b)
-            self.remove_widget(next1)
-            self.remove_widget(prev)
-            self.remove_widget(exi)
+            pass
         
     def best_ranking():
         # employing quick alorithms tobe able to extract insight from the bigdata models ie recurent and reinforcement ann
@@ -1756,26 +1832,26 @@ class Skillo(Screen):
 
 
 
-class Cedes(Screen):
+class Cedar(Screen):
 
     def admin(self):
-        l=Label(text="Ceo",size_hint=(.2,.2),pos_hint={'x':.8,'y':.58})
-        l.add_widget(l)
+        l=Label(text="Ceo",size_hint=(.2,.2),pos_hint={'x':.8,'y':.58},background_color= (0,0.5,1,1))
+        self.add_widget(l)
         return 
     def news(self):
-        l=Label(text="news today",size_hint=(.2,.2),pos_hint={'x':.1,'y':.58})
-        l.add_widget(l)
+        l=Label(text="live news",size_hint=(.2,.1),pos_hint={'x':.1,'y':.58},background_color= (0,0.5,1,1))
+        self.add_widget(l)
 
     def admin(self):
         #changing  the font size of the words and alignment 
         
         while self.green:
-            next1=Button(text="Ceo",size_hint=(.2,.05),pos_hint={'x':.5,'y':.8} )
+            next1=Button(text="Ceo",size_hint=(.2,.05),pos_hint={'x':.5,'y':.8},background_color= (0,0.5,1,1))
             self.add_widget(next1)
 
-            video=Video(state="play",source='',size_hint=(.6,.4),pos_hint={'x':.4,'y':.2},background_color=(0,0,0,1))
+            video=Video(state="play",source='',size_hint=(.6,.4),pos_hint={'x':.4,'y':.2},background_color=(0,.5,0,1))
             self.add_widget(video)
-            nex=Button(text="company",size_hint=(.2,.05),pos_hint={'x':.9,'y':.1} )
+            nex=Button(text="company",size_hint=(.2,.05),pos_hint={'x':.9,'y':.1} ,background_color= (1,0.5,1,1))
             self.add_widget(nex)
             self.add_widget(video)
             #self.remove_widget(next1)
@@ -1786,8 +1862,8 @@ class Cedes(Screen):
     def manager(self):
         # the news anchors platform for the new delivery
 
-        l=Label(text="manager",size_hint=(.4,.1),pos_hint={'x':.0,'y':.2})
-        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7} )
+        l=Label(text="manager",size_hint=(.4,.1),pos_hint={'x':.0,'y':.2},background_color= (0,0.5,1,1))
+        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7},background_color= (0,0.5,1,1) )
         self.add_widget(l)
         self.add_widget(next1)
         if next1.state=='down':
@@ -1800,40 +1876,27 @@ class Cedes(Screen):
 
     """
     def financier(self):
-        l1=Label(text='currency',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2})
+        l1=Label(text='currency',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2},background_color= (0,0.5,1,1))
         code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
         
-        l1=Label(text='ammount',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l1=Label(text='ammount',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
         a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
 
-        l2=Label(text='username ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l2=Label(text='username ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4},background_color= (0,0.5,1,1))
         #variable to hold the currency
         ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
 
-        l3=Label(text='phone ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l3=Label(text='phone ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
         #variable to hold the sellers name 
         user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
 
-        l4=Label(text='pin',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
+        l4=Label(text='pin',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
         pin=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
         
-        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.5,'y':.6} )
-        b.bold=True
-        b.border=16,16,16,16
-        b.background_color=0,1,1,1
-        b.background_down=''
-        b.background_down=''
-
-        """
-        l1.border(16,16,16,16)
-        l2.border(16,16,16,16)
-        l3.border(16,16,16,16)
-        l4.border(16,16,16,16)
-        b.border(16,16,16,16)
-        a_m.border(16,16,16,16)
-
-        """
+        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.5,'y':.6} ,background_color= (1,0.5,1,1))
+        
+    
         self.add_widget(code)
         self.add_widget(l1)
         self.add_widget(l2)
@@ -1854,41 +1917,25 @@ class Cedes(Screen):
     
     """
     def show(self):
-        l1=Label(text='name: Timo',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2})
-        code=Label(text="age: 20",size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        l1=Label(text='name: Timo',size_hint=(.3,.05),pos_hint={'x':.0,'y':.2},background_color= (0,0.5,1,1))
+        code=Label(text="age: 20",size_hint=(.3,.05),pos_hint={'x':.4,'y':.2},background_color= (0,0.5,1,1))
         
-        l1=Label(text='country:ug',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l1=Label(text='country:ug',size_hint=(.3,.05),pos_hint={'x':.4,'y':.3},background_color= (0,0.5,1,1))
         #variable to hold the ammount of money to be sold
-        a_m=Label(text="profs: media fx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.3})
+        a_m=Label(text="profs: media fx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.3},background_color= (0,0.5,1,1))
 
-        l2=Label(text='salary: 900000ugx',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l2=Label(text='salary: 900000ugx',size_hint=(.3,.05),pos_hint={'x':.4,'y':.4},background_color= (0,0.5,1,1))
         #variable to hold the currency
-        ugx=Label(text="date:......",size_hint=(.3,.05),pos_hint={'x':.7,'y':.4})
+        ugx=Label(text="date:.07/2024",size_hint=(.3,.05),pos_hint={'x':.7,'y':.4},background_color= (0,0.5,1,1))
 
-        l3=Label(text='phone:+256789498333 ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l3=Label(text='phone:+256754562905 ',size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
         #variable to hold the sellers name 
-        user_id=Label(text="show : youth dev",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5})
+        user_id=Label(text="show : youth dev",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5},background_color= (0,0.5,1,1))
 
-        l4=Label(text='hobby: movies',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
-        pin=Label(text="about: xxxx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5})
+        l4=Label(text='hobby: movies',size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
+        pin=Label(text="about: xxxx",size_hint=(.3,.05),pos_hint={'x':.7,'y':.5},background_color= (0,0.5,1,1))
+        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.8,'y':.6} ,background_color= (0,0.5,1,1))
         
-        b=Button(text='finish',size_hint=(.2,.05),pos_hint={'x':.8,'y':.6} )
-        b.bold=True
-        b.border=16,16,16,16
-        b.background_color=0,1,1,1
-        b.background_down=''
-        b.background_down=''
-        """
-        l1.border(16,16,16,16)
-        l2.border(16,16,16,16)
-        l3.border(16,16,16,16)
-        l4.border(16,16,16,16)
-        b.border(16,16,16,16)
-
-        
-        a_m.border(16,16,16,16)
-
-        """
         self.add_widget(code)
         self.add_widget(l1)
         self.add_widget(l2)
@@ -1899,25 +1946,157 @@ class Cedes(Screen):
         self.add_widget(user_id)
         self.add_widget(pin)
         self.add_widget(b)
-    
 
-        if b.state=='down':
-            self.remove_widget(code)
-            self.remove_widget(l1)
-            self.remove_widget(l2)
-            self.remove_widget(l3)
-            self.remove_widget(l4)
-            self.remove_widget(a_m)
-            self.remove_widget(ugx)
-            self.remove_widget(user_id)
-            self.remove_widget(pin)
-            self.remove_widget(b)
+
+
+    def tronics(self):
+        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        
+        l1=Label(text='photons',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18},background_color= (0,0.5,1,1))
+        #variable to hold the ammount of money to be sold
+        a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l2=Label(text='trans',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28},background_color= (0,0.5,1,1))
+        #variable to hold the currency
+        ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l3=Label(text='dio ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38},background_color= (0,0.5,1,1))
+        #variable to hold the sellers name 
+        user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l4=Label(text='serials',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48},background_color= (0,0.5,1,1))
+
+        but=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.4,'y':.08},background_color= (0,0.5,1,1))
+
+        
+        self.add_widget(code)
+        self.add_widget(l1)
+        self.add_widget(l2)
+        self.add_widget(l3)
+        self.add_widget(l4)
+        self.add_widget(a_m)
+        self.add_widget(ugx)
+        self.add_widget(user_id)
+        self.add_widget(but)
+
+    def reality(self):
+        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        text=code._get_text()
+        print(text,'inside cedar class in reality function')
+        l1=Label(text='VR',size_hint=(.1,.1),pos_hint={'x':.8,'y':.18},background_color= (0,0.5,1,1))
+        #variable to hold the ammount of money to be sold
+        a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l2=Label(text='AR',size_hint=(.1,.1),pos_hint={'x':.8,'y':.28},background_color= (0,0.5,1,1))
+        #variable to hold the currency
+        ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l3=Label(text='Euler ',size_hint=(.1,.1),pos_hint={'x':.8,'y':.38},background_color= (0,0.5,1,1))
+        #variable to hold the sellers name 
+        user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l4=Label(text='serial',size_hint=(.1,.1),pos_hint={'x':.8,'y':.48},background_color= (0,0.5,1,1))
+
+        but=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.4,'y':.08},background_color= (0,0.5,1,1))
+
+        
+        self.add_widget(code)
+        self.add_widget(l1)
+        self.add_widget(l2)
+        self.add_widget(l3)
+        self.add_widget(l4)
+        self.add_widget(a_m)
+        self.add_widget(ugx)
+        self.add_widget(user_id)
+        self.add_widget(but)
+    def cyber(self):
+        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        
+        l1=Label(text='crsf',size_hint=(.2,.1),pos_hint={'x':.8,'y':.18},background_color= (0,0.5,1,1))
+        #variable to hold the ammount of money to be sold
+        a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l2=Label(text='bforce',size_hint=(.2,.1),pos_hint={'x':.8,'y':.28},background_color= (0,0.5,1,1))
+        #variable to hold the currency
+        ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l3=Label(text='phish ',size_hint=(.2,.1),pos_hint={'x':.8,'y':.38},background_color= (0,0.5,1,1))
+        #variable to hold the sellers name 
+        user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l4=Label(text='crack',size_hint=(.2,.1),pos_hint={'x':.8,'y':.48},background_color= (0,0.5,1,1))
+
+        but=Button(text='send',size_hint=(.2,.05),pos_hint={'x':.4,'y':.08},background_color= (0,0.5,1,1))
+
+        
+        self.add_widget(code)
+        self.add_widget(l1)
+        self.add_widget(l2)
+        self.add_widget(l3)
+        self.add_widget(l4)
+        self.add_widget(a_m)
+        self.add_widget(ugx)
+        self.add_widget(user_id)
+        self.add_widget(but)
+    def ai(self):
+        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        
+        l1=Label(text='model',size_hint=(.2,.1),pos_hint={'x':.8,'y':.18},background_color= (0,0.5,1,1))
+        #variable to hold the ammount of money to be sold
+        a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l2=Label(text='data',size_hint=(.2,.1),pos_hint={'x':.8,'y':.28},background_color= (0,0.5,1,1))
+        #variable to hold the currency
+        ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l3=Label(text='duo ',size_hint=(.2,.1),pos_hint={'x':.8,'y':.38},background_color= (0,0.5,1,1))
+        #variable to hold the sellers name 
+        user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l4=Label(text='serial',size_hint=(.2,.1),pos_hint={'x':.8,'y':.48},background_color= (0,0.5,1,1))
+
+        but=Button(text='send',size_hint=(.1,.05),pos_hint={'x':.4,'y':.08},background_color= (0,0.5,1,1))
+
+        
+        self.add_widget(code)
+        self.add_widget(l1)
+        self.add_widget(l2)
+        self.add_widget(l3)
+        self.add_widget(l4)
+        self.add_widget(a_m)
+        self.add_widget(ugx)
+        self.add_widget(user_id)
+        self.add_widget(but)
+    def cloud(self):
+        pass
+
+    def blockchain(self):
+        code=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.2})
+        
+        l1=Label(text='ledger',size_hint=(.2,.1),pos_hint={'x':.8,'y':.18},background_color= (0,0.5,1,1))
+        #variable to hold the ammount of money to be sold
+        a_m=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.3})
+        l2=Label(text='node',size_hint=(.2,.1),pos_hint={'x':.8,'y':.28},background_color= (0,0.5,1,1))
+        #variable to hold the currency
+        ugx=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.4})
+        l3=Label(text='duo ',size_hint=(.2,.1),pos_hint={'x':.8,'y':.38},background_color= (0,0.5,1,1))
+        #variable to hold the sellers name 
+        user_id=TextInput(size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
+        l4=Label(text='serial',size_hint=(.2,.1),pos_hint={'x':.8,'y':.48},background_color= (0,0.5,1,1))
+
+        but=Button(text='send',size_hint=(.2,.05),pos_hint={'x':.4,'y':.08},background_color= (0,0.5,1,1))
+
+        
+        self.add_widget(code)
+        self.add_widget(l1)
+        self.add_widget(l2)
+        self.add_widget(l3)
+        self.add_widget(l4)
+        self.add_widget(a_m)
+        self.add_widget(ugx)
+        self.add_widget(user_id)
+        self.add_widget(but)
+
+    class c:
+        a=10
+        def m(self):
+            self.m
+
+
     def entertain(self):
         #tools for writing and editing the music 
-        pin=Label(text="afro",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
-        p=Label(text="rnb ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
-        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
-        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
+        pin=Label(text="afro",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
+        p=Label(text="rnb ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
+        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7},background_color= (0,0.5,1,1) )
+        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7},background_color= (0,0.5,1,1) )
         self.add_widget(pin)
         self.add_widget(p)
         self.add_widget(b)
@@ -1931,21 +2110,21 @@ class Cedes(Screen):
     
     def art_of_life(self):
         # overview of the general life 
-        next1=Button(text='fabs',size_hint=(.2,.05),pos_hint={'x':.6,'y':.4} )
+        next1=Button(text='fabs',size_hint=(.2,.05),pos_hint={'x':.6,'y':.4} ,background_color= (0,0.5,1,1))
         self.add_widget(next1)
-        nex=Button(text='fansay',size_hint=(.2,.05),pos_hint={'x':.6,'y':.2} )
+        nex=Button(text='fansay',size_hint=(.2,.05),pos_hint={'x':.6,'y':.2} ,background_color= (0,0.5,1,1))
         self.add_widget(nex)
 
         pass
     def movies(self):
         print("watching movies ")
         #adding clips to form back the movies like they were 
-        pin=Label(text="adventure",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5})
-        p=Label(text="horor ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6})
-        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
-        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7} )
-        prev=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.7,'y':.7} )
-        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} )
+        pin=Label(text="adventure",size_hint=(.3,.05),pos_hint={'x':.4,'y':.5},background_color= (0,0.5,1,1))
+        p=Label(text="horor ",size_hint=(.3,.05),pos_hint={'x':.4,'y':.6},background_color= (0,0.5,1,1))
+        b=Button(text='play',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7} ,background_color= (0,0.5,1,1))
+        next1=Button(text='next',size_hint=(.2,.05),pos_hint={'x':.6,'y':.7},background_color= (0,0.5,1,1) )
+        prev=Button(text='start',size_hint=(.2,.05),pos_hint={'x':.7,'y':.7},background_color= (0,0.5,1,1) )
+        exi=Button(text='exit',size_hint=(.2,.05),pos_hint={'x':.5,'y':.7},background_color= (0,0.5,1,1) )
         self.add_widget(pin)
         self.add_widget(p)
         self.add_widget(next1)
@@ -1990,7 +2169,7 @@ sm.add_widget(Login(name="login"))
 sm.add_widget(Games(name="games"))
 sm.add_widget(Tec(name="tec"))
 sm.add_widget(Skillo(name="skillo"))
-#sm.add_widget(Cedes(name="cedes"))
+#sm.add_widget(Cedar(name="cedar"))
 
 
 
@@ -2003,10 +2182,12 @@ class MainApp(App):
 
 
     def build(self):
-        self.title='@Cedes'
+        self.title='micronet '
+        self.icon='icon.png'
+        self.presplash='presplash.png'
     
         return sm
-    
+
     
 """
 
@@ -2014,4 +2195,5 @@ checking if the name is equal to main
 """
 if __name__=='__main__':
     e=MainApp()
+    
     e.run()

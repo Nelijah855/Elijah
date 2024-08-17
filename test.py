@@ -1,31 +1,34 @@
-with open('test.txt','w') as file:
-    file.write("elijah")
-    
-    file.write("xxxxxxx")
-rd=open('test.txt','r')
-for i in rd.readlines():
-    for x1 in range(14):
-        x=[]
-        if x1<=10:
-            print('adding...')
-            name=True
-            while name:
-                print('[Info ::.stop iter]')
-                name=False
-                
-                print('[Info ::.>>>>]')
-                if x1==10:
-                    name=False
-                else:
-                    print("[TRue...]")
+"""def test()-> int:
+    print("int class ")
+test(2,3)
+def test()-> any:
+    print("any")
+def test()->str:
+    print("str ")
+def test()->map:
+    print('map class ')
+import ctypes 
+def test()-> ctypes.c_char:
+    print("logic....")
 
-            
-            
-        else:
-            print("error")
-            try:
-                x[x1]
-            except IndexError as error:
-                print('index overlap error..')
+
+import uuid
+print(dir(uuid))
+"""
+name=True
+
+while name:
+    print('while loop')
+    for x in range(100):
+        print('first for',x)
+        if x==50:
+            print('@500')
+            break
+    for i in range(100):
+        print('forloop..',i)
+        if i==50:
+            print('point......',i)
+            break
+    
         
-        print(x)
+

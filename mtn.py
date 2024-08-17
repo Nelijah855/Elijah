@@ -35,7 +35,7 @@ print(reference_id)
 
 #
 
-import httplib, urllib, base64
+import httplib2, urllib, base64
 api_user = ""
 api_key =""
 api_user_and_key  = ""
@@ -43,12 +43,12 @@ encoded = base64.b64encode(api_user_and_key)
 headers = {
     # Request headers
     'Authorization': 'Basic '+encoded,
-    'Ocp-Apim-Subscription-Key': '<put-your-primary-subscription-id-here>',
+    'Ocp-Apim-Subscription-Key': '',
 }
 params = urllib.urlencode({
 })
 try:
-    conn = httplib.HTTPSConnection('ericssonbasicapi2.azure-api.net')
+    conn = httplib2.HTTPSConnection('ericssonbasicapi2.azure-api.net')
     conn.request("POST", "/collection/token/?%s" % params, "{body}", headers)
     response = conn.getresponse()
     print(response.status)
@@ -61,17 +61,17 @@ except Exception as e:
 
 
     #code to get 5000 from user account
-    import httplib, urllib, base64, uuid,json
+    import httplib2, urllib, base64, uuid,json
 token = ''
 reference_id = str(uuid.uuid4())
 headers = {
     # Request headersi
     'Authorization': 'Bearer '+token,
-    'X-Callback-Url': <replace with own http://myapp.com/momoapi/callback>,
-    'X-Reference-Id': refrence_id,
+    'X-Callback-Url': 'http://myapp.com/momoapi/callback',
+    'X-Reference-Id': reference_id,
     'X-Target-Environment': 'sandbox',
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': '<put-your-primary-subscription-id-here>',
+    'Ocp-Apim-Subscription-Key': 'primary-subscription',
 }
 params = urllib.urlencode({})
 body = json.dumps({
@@ -86,7 +86,7 @@ body = json.dumps({
   "payeeNote": "test note"
 })
 try:
-    conn = httplib.HTTPSConnection('ericssonbasicapi2.azure-api.net')
+    conn = httplib2.HTTPSConnection('ericssonbasicapi2.azure-api.net')
     conn.request("POST", "/collection/v1_0/requesttopay?%s" % params, body, headers)
     response = conn.getresponse()
     print(response.status)
